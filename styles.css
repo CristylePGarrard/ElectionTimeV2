@@ -34,6 +34,14 @@ h1, h2, p { margin-top: 0; }
 h1 { margin-bottom: 18px; font: 800 clamp(38px, 6vw, 66px)/1.03 Manrope, sans-serif; letter-spacing: -.065em; }
 h1 span { color: var(--teal); }
 .intro-copy { max-width: 620px; margin-bottom: 22px; color: #50636d; font-size: 15px; line-height: 1.8; }
+.find-reps-link { display: flex; align-items: center; gap: 13px; width: fit-content; max-width: 100%; margin: 0 0 22px; padding: 13px 16px; border: 1px solid #c9e0d6; border-radius: 12px; background: #e9f4ee; color: var(--ink); text-decoration: none; transition: border-color .15s, background .15s, transform .15s; }
+.find-reps-link:hover { border-color: #8fb9a9; background: #dff1e9; transform: translateY(-1px); }
+.find-reps-link:focus-visible { outline: 3px solid rgba(28,117,109,.3); outline-offset: 3px; }
+.find-reps-icon { display: grid; place-items: center; width: 38px; height: 38px; flex: 0 0 38px; border-radius: 10px; background: var(--teal); color: #fff; font-size: 25px; line-height: 1; }
+.find-reps-link strong, .find-reps-link small { display: block; }
+.find-reps-link strong { font-size: 12px; }
+.find-reps-link small { margin-top: 3px; color: #536b67; font-size: 10px; line-height: 1.5; }
+.find-reps-arrow { margin-left: 5px; color: var(--teal-dark); font-size: 17px; }
 .data-note { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: 11px; }
 .note-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex: 0 0 auto; }
 .note-dot.ready { background: var(--teal); }
