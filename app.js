@@ -633,9 +633,8 @@ async function initDistrictMap() {
       scrollWheelZoom: false,
       zoomControl: true
     });
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png", {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO',
-      subdomains: "abcd",
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       maxZoom: 19
     }).addTo(state.districtMap);
 
@@ -695,6 +694,9 @@ function resetFilters() {
   el("session-select").value = "All";
   el("outcome-select").value = "All";
   el("district-select").value = "";
+  // Rebuild both dependent dropdowns after clearing all primary filters.
+  // Otherwise the district list can retain the single district from a map click.
+  populateDistricts();
   populateLegislators();
   state.page = 1;
   render();
