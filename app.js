@@ -317,6 +317,35 @@ function renderHeader(bills) {
     details.push(filters.year + " session");
   }
 
+  const photo = el("legislator-photo");
+  if (selected && memberRecord) {
+    const nameParts = selected.split(",");
+    const normalizedName = text(selected).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z]/g, "").toUpperCase();
+    const photoFilenameOverrides = {
+      BALLARDMELISSAG: "BALLAMG.jpg"
+    };
+    const lastName = text(nameParts[0]).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z]/g, "").toUpperCase().slice(0, 5);
+    const firstNameParts = text(nameParts[1]).trim().split(/\s+/).filter(Boolean);
+    const initials = firstNameParts
+      .slice(0, 2)
+      .map(part => part[0].normalize("NFD").replace(/[^A-Za-z]/g, "").toUpperCase())
+      .join("");
+    const chamberPath = text(memberRecord.chamber).toLowerCase();
+    const filename = photoFilenameOverrides[normalizedName] || (lastName && initials ? lastName + initials + ".jpg" : "");
+    if (filename && ["house", "senate"].includes(chamberPath)) {
+      photo.src = "https://le.utah.gov/images/legislator/" + chamberPath + "/" + filename;
+      photo.alt = "Photo of " + selected.replace(",", "");
+      photo.hidden = false;
+      photo.onerror = () => { photo.hidden = true; photo.removeAttribute("src"); };
+    } else {
+      photo.hidden = true;
+      photo.removeAttribute("src");
+    }
+  } else {
+    photo.hidden = true;
+    photo.removeAttribute("src");
+  }
+
   el("view-title").textContent = title;
   el("view-subtitle").textContent = details.length
     ? details.join(" · ")
