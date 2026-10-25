@@ -896,6 +896,7 @@ async function init() {
       el("bill-table-body").closest(".bills-panel").scrollIntoView({ behavior: "smooth", block: "start" });
     });
     el("reset-filters").addEventListener("click", resetFilters);
+    el("reset-table-filters").addEventListener("click", resetFilters);
     updateSortHeaders();
 
     // Table-only filters should refresh the table and return to page one.
