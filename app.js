@@ -320,9 +320,9 @@ function renderHeader(bills) {
   const photo = el("legislator-photo");
   if (selected && memberRecord) {
     const nameParts = selected.split(",");
-    const lastName = text(nameParts[0]).normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").replace(/[^A-Za-z]/g, "").toUpperCase();
-    const firstName = text(nameParts[1]).trim().split(/\\s+/)[0];
-    const firstInitial = firstName ? firstName[0].normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").replace(/[^A-Za-z]/g, "").toUpperCase() : "";
+    const lastName = text(nameParts[0]).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z]/g, "").toUpperCase();
+    const firstName = text(nameParts[1]).trim().split(/\s+/)[0];
+    const firstInitial = firstName ? firstName[0].normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z]/g, "").toUpperCase() : "";
     const chamberPath = text(memberRecord.chamber).toLowerCase();
     if (lastName && firstInitial && ["house", "senate"].includes(chamberPath)) {
       photo.src = "https://le.utah.gov/images/legislator/" + chamberPath + "/" + lastName + firstInitial + ".jpg";
