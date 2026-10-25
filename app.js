@@ -39,9 +39,11 @@ function unique(values) {
   return [...new Set(values.filter(Boolean))];
 }
 
+
 function getFilters() {
   return {
     legislator: el("legislator-select").value,
+    district: el("district-select").value,
     chamber: el("chamber-select").value,
     year: el("year-select").value
   };
@@ -49,11 +51,27 @@ function getFilters() {
 
 function getBaseBills() {
   const filters = getFilters();
+
   return state.allBills.filter((bill) => {
-    const chamberOkay = filters.chamber === "All" || text(bill.chamber) === filters.chamber;
-    const yearOkay = filters.year === "All" || String(bill.year) === filters.year;
-    const legislatorOkay = !filters.legislator || text(bill.legislator_name) === filters.legislator;
-    return chamberOkay && yearOkay && legislatorOkay;
+    const chamberOkay =
+      filters.chamber === "All" ||
+      text(bill.chamber) === filters.chamber;
+
+    const yearOkay =
+      filters.year === "All" ||
+      String(bill.year) === filters.year;
+
+    const legislatorOkay =
+      !filters.legislator ||
+      text(bill.legislator_name) === filters.legislator;
+
+    const districtOkay =
+      !filters.district ||
+      (
+        text(bill.chamber) + "|" + text(bill.matched_district)
+      ) === filters.district;
+
+    return chamberOkay && yearOkay && legislatorOkay && districtOkay;
   });
 }
 
@@ -61,31 +79,252 @@ function populateLegislators() {
   const select = el("legislator-select");
   const current = select.value;
   const filters = getFilters();
-  const options = unique(state.allBills
-    .filter((bill) => filters.chamber === "All" || text(bill.chamber) === filters.chamber)
-    .filter((bill) => filters.year === "All" || String(bill.year) === filters.year)
-    .map((bill) => text(bill.legislator_name))
-    .sort((a, b) => a.localeCompare(b)));
+
+  const options = unique(
+    state.allBills
+      .filter((bill) =>
+        filters.chamber === "All" ||
+        text(bill.chamber) === filters.chamber
+      )
+      .filter((bill) =>
+        filters.year === "All" ||
+        String(bill.year) === filters.year
+      )
+      .filter((bill) =>
+        !filters.district ||
+        (text(bill.chamber) + "|" + text(bill.matched_district)) ===
+          filters.district
+      )
+      .map((bill) => text(bill.legislator_name))
+      .sort((a, b) => a.localeCompare(b))
+  );
 
   select.replaceChildren(new Option("All legislators", ""));
-  options.forEach((name) => select.add(new Option(name, name)));
-  if (options.includes(current)) select.value = current;
+
+  options.forEach((name) => {
+    select.add(new Option(name, name));
+  });
+
+  select.value = options.includes(current) ? current : "";
+}
+
+
+function populateDistricts() {
+  const select = el("district-select");
+  const current = select.value;
+  const filters = getFilters();
+  const districts = new Map();
+
+  state.allBills.forEach((bill) => {
+    const chamber = text(bill.chamber);
+    const district = text(bill.matched_district);
+    const year = String(bill.year);
+
+    if (!["House", "Senate"].includes(chamber) || !district) return;
+
+    // Respect the selected chamber and year.
+    if (filters.chamber !== "All" && chamber !== filters.chamber) return;
+    if (filters.year !== "All" && year !== filters.year) return;
+
+    // If a representative is selected, limit choices to their district.
+    if (
+      filters.legislator &&
+      text(bill.legislator_name) !== filters.legislator
+    ) return;
+
+    const value = chamber + "|" + district;
+    districts.set(value, { chamber, district });
+  });
+
+  const sortedDistricts = [...districts.entries()].sort((a, b) => {
+    const chamberOrder = a[1].chamber.localeCompare(b[1].chamber);
+
+    return chamberOrder || a[1].district.localeCompare(
+      b[1].district,
+      undefined,
+      { numeric: true }
+    );
+  });
+
+  select.replaceChildren(new Option("All districts", ""));
+
+  sortedDistricts.forEach(([value, item]) => {
+    select.add(
+      new Option(
+        item.chamber + " · District " + item.district,
+        value
+      )
+    );
+  });
+
+  // Keep the current selection only if it remains valid.
+  select.value = sortedDistricts.some(([value]) => value === current)
+    ? current
+    : "";
+}
+
+function syncPrimaryFilters(changed) {
+  const year = el("year-select").value;
+  const chamberSelect = el("chamber-select");
+  const legislatorSelect = el("legislator-select");
+  const districtSelect = el("district-select");
+
+  let legislator = legislatorSelect.value;
+  let district = districtSelect.value;
+  let chamber = chamberSelect.value;
+
+  if (changed === "district" && district) {
+    const [districtChamber] = district.split("|");
+    chamberSelect.value = districtChamber;
+    chamber = districtChamber;
+
+    const matchingLegislator = state.allBills.some((bill) =>
+      text(bill.legislator_name) === legislator &&
+      text(bill.chamber) === chamber &&
+      text(bill.matched_district) === district.split("|")[1] &&
+      (year === "All" || String(bill.year) === year)
+    );
+
+    if (legislator && !matchingLegislator) {
+      legislatorSelect.value = "";
+    }
+  }
+
+  if (changed === "legislator" && legislator) {
+    const personBills = state.allBills.filter((bill) =>
+      text(bill.legislator_name) === legislator &&
+      (year === "All" || String(bill.year) === year) &&
+      (chamber === "All" || text(bill.chamber) === chamber) &&
+      (!district ||
+        (text(bill.chamber) + "|" + text(bill.matched_district)) === district)
+    );
+
+    const person = personBills[0];
+
+    if (person) {
+      chamberSelect.value = text(person.chamber);
+      chamber = text(person.chamber);
+
+      const personDistrict = text(person.matched_district);
+      districtSelect.value = personDistrict
+        ? chamber + "|" + personDistrict
+        : "";
+
+      district = districtSelect.value;
+    }
+  }
+
+  if (changed === "chamber") {
+    if (district && !district.startsWith(chamber + "|")) {
+      districtSelect.value = "";
+      district = "";
+    }
+
+    const matchingLegislator = state.allBills.some((bill) =>
+      text(bill.legislator_name) === legislator &&
+      text(bill.chamber) === chamber &&
+      (year === "All" || String(bill.year) === year)
+    );
+
+    if (legislator && !matchingLegislator) {
+      legislatorSelect.value = "";
+    }
+  }
+
+  if (changed === "year") {
+    const matchesYear = (bill) =>
+      year === "All" || String(bill.year) === year;
+
+    if (legislator && !state.allBills.some((bill) =>
+      text(bill.legislator_name) === legislator &&
+      matchesYear(bill) &&
+      (chamber === "All" || text(bill.chamber) === chamber) &&
+      (!district ||
+        (text(bill.chamber) + "|" + text(bill.matched_district)) === district)
+    )) {
+      legislatorSelect.value = "";
+      legislator = "";
+    }
+
+    if (district && !state.allBills.some((bill) =>
+      (text(bill.chamber) + "|" + text(bill.matched_district)) === district &&
+      matchesYear(bill)
+    )) {
+      districtSelect.value = "";
+    }
+  }
+
+  populateDistricts();
+  populateLegislators();
+
+  // If a selected person has a district, keep that district selected.
+  if (legislatorSelect.value && changed === "legislator") {
+    const person = state.allBills.find((bill) =>
+      text(bill.legislator_name) === legislatorSelect.value &&
+      (year === "All" || String(bill.year) === year) &&
+      text(bill.chamber) === chamberSelect.value
+    );
+
+    if (person && text(person.matched_district)) {
+      const key = text(person.chamber) + "|" + text(person.matched_district);
+      if ([...districtSelect.options].some((option) => option.value === key)) {
+        districtSelect.value = key;
+      }
+    }
+  }
 }
 
 function renderHeader(bills) {
   const filters = getFilters();
   const selected = filters.legislator;
-  const memberRecord = selected ? bills.find((bill) => text(bill.legislator_name) === selected) : null;
-  el("view-title").textContent = selected || "All legislators";
+  const memberRecord = selected
+    ? bills.find((bill) => text(bill.legislator_name) === selected)
+    : null;
+
+  let title = "All legislators";
+  let tag = "ALL MEMBERS";
   const details = [];
-  if (memberRecord?.chamber) details.push(memberRecord.chamber === "House" ? "State House" : "State Senate");
-  if (memberRecord?.matched_district !== null && memberRecord?.matched_district !== undefined && text(memberRecord.matched_district)) details.push("District " + text(memberRecord.matched_district));
-  if (memberRecord?.matched_party) details.push(text(memberRecord.matched_party));
-  if (filters.year !== "All") details.push(filters.year + " session");
-  el("view-subtitle").textContent = selected
-    ? (details.length ? details.join(" · ") : "Legislator bill records in the selected view.")
-    : (filters.year === "All" ? "A look across Utah legislative bill records." : "Bill records for the " + filters.year + " session.");
-  el("person-tag").textContent = selected ? (memberRecord?.chamber === "Senate" ? "STATE SENATE" : memberRecord?.chamber === "House" ? "STATE HOUSE" : "LEGISLATOR") : "ALL MEMBERS";
+
+  if (selected) {
+    title = selected;
+    tag = memberRecord?.chamber === "Senate"
+      ? "STATE SENATE"
+      : memberRecord?.chamber === "House"
+        ? "STATE HOUSE"
+        : "LEGISLATOR";
+  } else if (filters.district) {
+    const [chamber, district] = filters.district.split("|");
+    title = chamber + " · District " + district;
+    tag = chamber === "Senate" ? "STATE SENATE" : "STATE HOUSE";
+  } else if (filters.chamber !== "All") {
+    title = filters.chamber === "Senate"
+      ? "State Senate"
+      : "State House";
+    tag = filters.chamber === "Senate" ? "STATE SENATE" : "STATE HOUSE";
+  }
+
+  if (memberRecord?.matched_district) {
+    details.push("District " + text(memberRecord.matched_district));
+  }
+  if (memberRecord?.matched_party) {
+    details.push(text(memberRecord.matched_party));
+  }
+  if (filters.year !== "All") {
+    details.push(filters.year + " session");
+  }
+
+  el("view-title").textContent = title;
+  el("view-subtitle").textContent = details.length
+    ? details.join(" · ")
+    : selected
+      ? "Legislator bill records in the selected view."
+      : filters.district
+        ? "Bill records for the selected district."
+        : filters.chamber !== "All"
+          ? "Bill records for this chamber."
+          : "A look across Utah legislative bill records.";
+
+  el("person-tag").textContent = tag;
 }
 
 function renderStats(bills) {
@@ -113,6 +352,7 @@ function renderOutcomeBars(counts) {
   }).join("");
 }
 
+
 function renderChart(bills) {
   const canvas = el("year-chart");
   const ctx = canvas.getContext("2d");
@@ -120,15 +360,35 @@ function renderChart(bills) {
   const ratio = Math.max(1, window.devicePixelRatio || 1);
   const width = Math.max(260, bounds.width);
   const height = Math.max(180, bounds.height);
+
   canvas.width = Math.round(width * ratio);
   canvas.height = Math.round(height * ratio);
   ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
   ctx.clearRect(0, 0, width, height);
 
   const years = ["2023", "2024", "2025", "2026"];
-  const counts = years.map((year) => bills.filter((bill) => String(bill.year) === year).length);
-  const max = Math.max(...counts, 1);
-  const pad = { top: 20, right: 10, bottom: 34, left: 36 };
+  const colors = {
+    Passed: "#1c756d",
+    Failed: "#b9574d",
+    Unverified: "#e5b85c"
+  };
+
+  const yearlyCounts = years.map((year) => {
+    const yearBills = bills.filter((bill) => String(bill.year) === year);
+    return {
+      year,
+      Passed: yearBills.filter((bill) => outcomeKind(bill) === "Passed").length,
+      Failed: yearBills.filter((bill) => outcomeKind(bill) === "Failed").length,
+      Unverified: yearBills.filter((bill) => outcomeKind(bill) === "Unverified").length
+    };
+  });
+
+  const max = Math.max(
+    ...yearlyCounts.map((item) => item.Passed + item.Failed + item.Unverified),
+    1
+  );
+
+  const pad = { top: 24, right: 10, bottom: 34, left: 36 };
   const plotWidth = width - pad.left - pad.right;
   const plotHeight = height - pad.top - pad.bottom;
   const tickCount = 4;
@@ -136,41 +396,67 @@ function renderChart(bills) {
   ctx.font = "10px 'DM Mono', monospace";
   ctx.textAlign = "right";
   ctx.textBaseline = "middle";
+
   for (let i = 0; i <= tickCount; i++) {
     const value = Math.round(max * (tickCount - i) / tickCount);
     const y = pad.top + plotHeight * i / tickCount;
+
     ctx.strokeStyle = "#e8eeea";
     ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(width - pad.right, y); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(pad.left, y);
+    ctx.lineTo(width - pad.right, y);
+    ctx.stroke();
+
     ctx.fillStyle = "#859399";
     ctx.fillText(numberFormat.format(value), pad.left - 8, y);
   }
 
   const slot = plotWidth / years.length;
-  const barWidth = Math.min(42, slot * .48);
-  counts.forEach((count, i) => {
-    const barHeight = (count / max) * plotHeight;
+  const barWidth = Math.min(42, slot * 0.48);
+
+  yearlyCounts.forEach((item, i) => {
     const x = pad.left + slot * i + (slot - barWidth) / 2;
-    const y = pad.top + plotHeight - barHeight;
-    ctx.fillStyle = "#1c756d";
-    roundedRect(ctx, x, y, barWidth, Math.max(barHeight, count ? 2 : 0), 5);
-    ctx.fill();
+    let currentY = pad.top + plotHeight;
+    const total = item.Passed + item.Failed + item.Unverified;
+
+    ["Passed", "Failed", "Unverified"].forEach((outcome) => {
+      const count = item[outcome];
+      const segmentHeight = (count / max) * plotHeight;
+
+      if (count > 0) {
+        currentY -= segmentHeight;
+        ctx.fillStyle = colors[outcome];
+        ctx.fillRect(x, currentY, barWidth, segmentHeight);
+      }
+    });
+
     ctx.fillStyle = "#52656d";
     ctx.textAlign = "center";
     ctx.textBaseline = "top";
-    ctx.fillText(years[i], x + barWidth / 2, height - pad.bottom + 12);
-    if (count) {
+    ctx.font = "10px 'DM Mono', monospace";
+    ctx.fillText(item.year, x + barWidth / 2, height - pad.bottom + 12);
+
+    if (total > 0) {
+      const totalHeight = (total / max) * plotHeight;
+      const topY = pad.top + plotHeight - totalHeight;
+
       ctx.fillStyle = "#182e3b";
       ctx.font = "600 10px 'DM Sans', sans-serif";
       ctx.textBaseline = "bottom";
-      ctx.fillText(numberFormat.format(count), x + barWidth / 2, y - 5);
-      ctx.font = "10px 'DM Mono', monospace";
+      ctx.fillText(
+        numberFormat.format(total),
+        x + barWidth / 2,
+        topY - 5
+      );
     }
   });
 
-  el("chart-total").textContent = numberFormat.format(bills.length) + " records";
+  el("chart-total").textContent =
+    numberFormat.format(bills.length) + " records";
   el("chart-empty").hidden = bills.length !== 0;
 }
+
 
 function roundedRect(ctx, x, y, width, height, radius) {
   const r = Math.min(radius, width / 2, height / 2);
@@ -259,13 +545,7 @@ function render() {
 }
 
 function onPrimaryFilterChange(changed) {
-  if (changed !== "legislator") {
-    const current = el("legislator-select").value;
-    populateLegislators();
-    if (current && [...el("legislator-select").options].some((option) => option.value === current)) {
-      el("legislator-select").value = current;
-    }
-  }
+  syncPrimaryFilters(changed);
   state.page = 1;
   render();
 }
@@ -277,6 +557,7 @@ function resetFilters() {
   el("bill-search").value = "";
   el("session-select").value = "All";
   el("outcome-select").value = "All";
+  el("district-select").value = "";
   populateLegislators();
   state.page = 1;
   render();
@@ -303,14 +584,26 @@ async function init() {
     el("data-status").textContent = "Loaded " + numberFormat.format(state.allBills.length) + " bill records";
     document.querySelector(".note-dot").classList.add("ready");
     populateLegislators();
+    populateDistricts();
     render();
 
+
     ["legislator-select", "chamber-select", "year-select"].forEach((id) => {
-      el(id).addEventListener("change", () => onPrimaryFilterChange(id === "legislator-select" ? "legislator" : id));
+      el(id).addEventListener("change", () => {
+        const changed = {
+          "legislator-select": "legislator",
+          "chamber-select": "chamber",
+          "year-select": "year"
+        }[id];
+
+        onPrimaryFilterChange(changed);
+      });
     });
-    ["bill-search", "session-select", "outcome-select"].forEach((id) => {
-      el(id).addEventListener(id === "bill-search" ? "input" : "change", () => { state.page = 1; renderTable(); });
+
+    el("district-select").addEventListener("change", () => {
+      onPrimaryFilterChange("district");
     });
+
     el("reset-filters").addEventListener("click", resetFilters);
     el("prev-page").addEventListener("click", () => { state.page -= 1; renderTable(); });
     el("next-page").addEventListener("click", () => { state.page += 1; renderTable(); });

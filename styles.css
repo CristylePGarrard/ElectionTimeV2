@@ -145,3 +145,37 @@ tbody tr:last-child td { border-bottom: 0; }
   .site-footer { align-items: flex-start; flex-direction: column; padding: 20px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
+
+
+.chart-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+}
+
+.chart-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.chart-legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex: 0 0 10px;
+}
+
+.chart-legend .legend-passed {
+  background: #1c756d;
+}
+
+.chart-legend .legend-failed {
+  background: #b9574d;
+}
+
+.chart-legend .legend-unverified {
+  background: #e5b85c;
+}

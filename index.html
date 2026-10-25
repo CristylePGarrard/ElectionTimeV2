@@ -33,6 +33,12 @@
         <select id="legislator-select"><option value="">All legislators</option></select>
       </div>
       <div class="field">
+        <label for="district-select">District</label>
+        <select id="district-select">
+          <option value="">All districts</option>
+        </select>
+      </div>
+      <div class="field">
         <label for="chamber-select">Chamber</label>
         <select id="chamber-select">
           <option value="All">House + Senate</option>
@@ -96,7 +102,14 @@
           <canvas id="year-chart" role="img" aria-label="Bar chart of sponsored bills by year"></canvas>
           <p class="empty-state" id="chart-empty" hidden>No bill records match these filters.</p>
         </div>
-        <div class="chart-legend"><span><i></i> Sponsored bills</span><span id="chart-total">— records</span></div>
+
+        <div class="chart-legend">
+          <span><i class="legend-passed"></i> Passed</span>
+          <span><i class="legend-failed"></i> Failed</span>
+          <span><i class="legend-unverified"></i> Unverified</span>
+          <span id="chart-total">— records</span>
+        </div>
+
       </article>
 
       <article class="panel outcome-panel">
