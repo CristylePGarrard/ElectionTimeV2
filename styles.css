@@ -258,6 +258,37 @@ tbody tr:last-child td { border-bottom: 0; }
 }
 
 
+/* Click-to-filter table cells and sortable headers */
+thead th[data-sort] { padding: 0; }
+thead th[data-sort] button {
+  display: block; width: 100%; padding: 12px; border: 0; border-radius: 7px;
+  background: transparent; color: inherit; font: inherit; letter-spacing: inherit;
+  text-align: left; text-transform: inherit; white-space: nowrap; cursor: pointer;
+}
+thead th[data-sort] button:hover,
+thead th[data-sort] button:focus-visible { background: #e9f4ee; color: var(--teal-dark); outline: none; }
+.table-filter-link {
+  display: inline; padding: 0; border: 0; background: transparent; color: var(--teal-dark);
+  font: inherit; text-align: left; cursor: pointer; text-decoration: underline;
+  text-decoration-color: transparent; text-underline-offset: 3px;
+}
+.table-filter-link:hover, .table-filter-link:focus-visible {
+  color: var(--teal); text-decoration-color: currentColor; outline: none;
+}
+.year-filter-link { font-weight: 700; }
+
+
+/* Compact reset control beside the bill-table filters */
+.table-reset-button {
+  min-height: 43px;
+  padding: 9px 11px;
+  color: var(--teal-dark);
+  border-color: #c9e0d6;
+  flex: 0 0 auto;
+}
+@media (max-width: 800px) {
+  .table-reset-button { margin-left: auto; }
+}
 /* 2026 incumbent candidate indicators */
 .candidate-filter-field { min-width: 205px; }
 .candidate-badge {

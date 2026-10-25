@@ -168,10 +168,11 @@
         <label class="search-box" for="bill-search"><span aria-hidden="true">⌕</span><input id="bill-search" type="search" placeholder="Search bills…" autocomplete="off"></label>
         <label class="field compact-field" for="session-select"><span>Session type</span><select id="session-select"><option value="All">All sessions</option><option value="Regular session">Regular session</option><option value="Special session">Special session</option></select></label>
         <label class="field compact-field" for="outcome-select"><span>Outcome</span><select id="outcome-select"><option value="All">All outcomes</option><option value="Passed">Passed</option><option value="Failed">Failed</option><option value="Unverified">Unverified</option></select></label>
+        <button id="reset-table-filters" class="button button-quiet table-reset-button" type="button" title="Reset all dashboard and table filters" aria-label="Reset all filters">↺ Reset</button>
       </div>
       <div class="table-scroll">
         <table>
-          <thead><tr><th scope="col">Bill</th><th scope="col">Title</th><th scope="col">Legislator</th><th scope="col">Year / session</th><th scope="col">Outcome</th><th scope="col">Official record</th></tr></thead>
+          <thead><tr><th scope="col" data-sort="bill" aria-sort="none"><button type="button" data-label="Bill">Bill ↕</button></th><th scope="col" data-sort="title" aria-sort="none"><button type="button" data-label="Title">Title ↕</button></th><th scope="col" data-sort="legislator" aria-sort="none"><button type="button" data-label="Legislator">Legislator ↕</button></th><th scope="col" data-sort="year" aria-sort="none"><button type="button" data-label="Year / session">Year / session ↕</button></th><th scope="col" data-sort="outcome" aria-sort="none"><button type="button" data-label="Outcome">Outcome ↕</button></th><th scope="col" data-sort="record" aria-sort="none"><button type="button" data-label="Official record">Official record ↕</button></th></tr></thead>
           <tbody id="bill-table-body"><tr><td colspan="6" class="table-message">Loading bill records…</td></tr></tbody>
         </table>
       </div>
