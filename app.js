@@ -340,6 +340,12 @@ function renderStats(bills) {
   el("stat-passed").textContent = numberFormat.format(counts.Passed);
   el("stat-failed").textContent = numberFormat.format(counts.Failed);
   el("stat-rate").textContent = rate === null ? "—" : rate + "%";
+  ["Passed", "Failed"].forEach((outcome) => {
+    const card = el(outcome === "Passed" ? "stat-passed" : "stat-failed").closest(".stat-card");
+    const active = el("outcome-select").value === outcome;
+    card.classList.toggle("is-active", active);
+    card.setAttribute("aria-pressed", String(active));
+  });
   renderOutcomeBars(counts);
 }
 
@@ -675,7 +681,7 @@ function render() {
   const bills = getBaseBills();
   renderHeader(bills);
   renderStats(bills);
-  renderChart(bills);
+  renderChart(bills.filter((bill) => el("outcome-select").value === "All" || outcomeKind(bill) === el("outcome-select").value));
   renderTable();
   updateDistrictMap();
 }
@@ -745,6 +751,30 @@ async function init() {
     });
 
     el("reset-filters").addEventListener("click", resetFilters);
+    el("stat-sponsored").closest(".stat-card").addEventListener("click", () => {
+      el("bill-table-body").closest(".bills-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    ["Passed", "Failed"].forEach((outcome) => {
+      const card = el(outcome === "Passed" ? "stat-passed" : "stat-failed").closest(".stat-card");
+      card.classList.add("stat-card-interactive");
+      card.setAttribute("role", "button");
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("aria-label", "Filter bills to " + outcome.toLowerCase() + " outcomes. Activate again to clear.");
+      const toggleOutcome = () => {
+        const select = el("outcome-select");
+        select.value = select.value === outcome ? "All" : outcome;
+        state.page = 1;
+        render();
+        el("outcome-bars").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      };
+      card.addEventListener("click", toggleOutcome);
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          toggleOutcome();
+        }
+      });
+    });
     el("prev-page").addEventListener("click", () => { state.page -= 1; renderTable(); });
     el("next-page").addEventListener("click", () => { state.page += 1; renderTable(); });
     window.addEventListener("resize", () => renderChart(getBaseBills()));
