@@ -213,7 +213,7 @@ function populateLegislators() {
 
   options.forEach((name) => {
     const bill = memberNames.get(name);
-    const label = filters.incumbentCandidates && isIncumbentRunning2026(bill)
+    const label = isIncumbentRunning2026(bill)
       ? name + " · Running in 2026"
       : name;
     select.add(new Option(label, name));
