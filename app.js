@@ -4,6 +4,8 @@ const PAGE_SIZE = 12;
 const state = {
   allBills: [],
   filteredBills: [],
+  sortColumn: "",
+  sortDirection: "asc",
   page: 1,
   canvasObserver: null,
   districtMap: null,
@@ -522,8 +524,54 @@ function applyTableFilters(bills) {
       bill.chamber, bill.matched_party, bill.matched_district
     ].map(text).join(" ").toLowerCase();
     return sessionOkay && outcomeOkay && (!query || searchable.includes(query));
-  }).sort((a, b) => safeNumber(b.year) - safeNumber(a.year)
-    || text(a.bill_number).localeCompare(text(b.bill_number), undefined, { numeric: true }));
+  }).sort((a, b) => {
+    if (!state.sortColumn) {
+      return safeNumber(b.year) - safeNumber(a.year)
+        || text(a.bill_number).localeCompare(text(b.bill_number), undefined, { numeric: true });
+    }
+    const comparison = tableSortValue(a, state.sortColumn).localeCompare(
+      tableSortValue(b, state.sortColumn), undefined, { numeric: true, sensitivity: "base" }
+    );
+    return state.sortDirection === "asc" ? comparison : -comparison;
+  });
+}
+
+function tableSortValue(bill, column) {
+  switch (column) {
+    case "bill": return text(bill.bill_number) || text(bill.bill_key) || "Bill";
+    case "title": return text(bill.bill_title) || "Title not available";
+    case "legislator": return text(bill.legislator_name) || text(bill.sponsor) || "Unknown";
+    case "year": return text(bill.year) + " " + text(bill.session_type);
+    case "outcome": return outcomeKind(bill);
+    case "record": return text(bill.bill_url) ? "View bill" : "Link unavailable";
+    default: return "";
+  }
+}
+
+function toggleTableSort(column) {
+  if (state.sortColumn === column) {
+    state.sortDirection = state.sortDirection === "asc" ? "desc" : "asc";
+  } else {
+    state.sortColumn = column;
+    state.sortDirection = "asc";
+  }
+  state.page = 1;
+  updateSortHeaders();
+  renderTable();
+}
+
+function updateSortHeaders() {
+  document.querySelectorAll("th[data-sort]").forEach((header) => {
+    const active = header.dataset.sort === state.sortColumn;
+    header.setAttribute("aria-sort", active
+      ? (state.sortDirection === "asc" ? "ascending" : "descending")
+      : "none");
+    const button = header.querySelector("button");
+    if (!button) return;
+    button.textContent = button.dataset.label + (active
+      ? (state.sortDirection === "asc" ? " ↑" : " ↓")
+      : " ↕");
+  });
 }
 
 function escapeHtml(value) {
@@ -567,8 +615,8 @@ function renderTable() {
     return '<tr>' +
       '<td><span class="bill-number">' + escapeHtml(billNumber) + '</span><span class="subtext">' + escapeHtml(chamber) + '</span></td>' +
       '<td><div class="bill-title">' + escapeHtml(title) + '</div><span class="subtext">' + escapeHtml(bill.sponsor || "") + '</span></td>' +
-      '<td>' + escapeHtml(bill.legislator_name || bill.sponsor || "Unknown") + (bill.matched_party ? '<span class="subtext">' + escapeHtml(bill.matched_party) + (bill.matched_district ? ' · Dist. ' + escapeHtml(bill.matched_district) : '') + '</span>' : '') + '</td>' +
-      '<td>' + escapeHtml(bill.year) + '<span class="subtext">' + escapeHtml(sessionType) + '</span>' + (date ? '<span class="subtext">' + escapeHtml(date) + '</span>' : '') + '</td>' +
+      '<td><button type="button" class="table-filter-link" data-legislator="' + escapeHtml(bill.legislator_name || bill.sponsor || "Unknown") + '">' + escapeHtml(bill.legislator_name || bill.sponsor || "Unknown") + '</button>' + (bill.matched_party ? '<span class="subtext">' + escapeHtml(bill.matched_party) + (bill.matched_district ? ' · Dist. ' + escapeHtml(bill.matched_district) : '') + '</span>' : '') + '</td>' +
+      '<td><button type="button" class="table-filter-link year-filter-link" data-year="' + escapeHtml(bill.year) + '" data-session="' + escapeHtml(sessionType) + '">' + escapeHtml(bill.year) + '</button><span class="subtext">' + escapeHtml(sessionType) + '</span>' + (date ? '<span class="subtext">' + escapeHtml(date) + '</span>' : '') + '</td>' +
       '<td><span class="outcome-pill ' + pillClass + '">' + kind + '</span></td>' +
       '<td>' + officialLink + '</td>' +
       '</tr>';
@@ -735,6 +783,9 @@ function onPrimaryFilterChange(changed) {
 }
 
 function resetFilters() {
+  state.sortColumn = "";
+  state.sortDirection = "asc";
+  updateSortHeaders();
   el("legislator-select").value = "";
   el("chamber-select").value = "All";
   el("year-select").value = "All";
@@ -792,6 +843,36 @@ async function init() {
       onPrimaryFilterChange("district");
     });
 
+    document.querySelectorAll("th[data-sort] button").forEach((button) => {
+      button.addEventListener("click", () => toggleTableSort(button.closest("th").dataset.sort));
+    });
+
+    el("bill-table-body").addEventListener("click", (event) => {
+      const legislatorButton = event.target.closest("[data-legislator]");
+      if (legislatorButton) {
+        const name = legislatorButton.dataset.legislator;
+        const select = el("legislator-select");
+        if ([...select.options].some((option) => option.value === name)) {
+          select.value = name;
+          onPrimaryFilterChange("legislator");
+          el("bill-table-body").closest(".bills-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        return;
+      }
+      const yearButton = event.target.closest("[data-year]");
+      if (yearButton) {
+        const year = yearButton.dataset.year;
+        const session = yearButton.dataset.session;
+        el("year-select").value = [...el("year-select").options].some((option) => option.value === year) ? year : "All";
+        el("session-select").value = [...el("session-select").options].some((option) => option.value === session) ? session : "All";
+        state.page = 1;
+        onPrimaryFilterChange("year");
+        render();
+        el("bill-table-body").closest(".bills-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+
+
     el("year-chart").addEventListener("click", (event) => {
       const canvas = el("year-chart");
       const rect = canvas.getBoundingClientRect();
@@ -815,6 +896,7 @@ async function init() {
       el("bill-table-body").closest(".bills-panel").scrollIntoView({ behavior: "smooth", block: "start" });
     });
     el("reset-filters").addEventListener("click", resetFilters);
+    updateSortHeaders();
 
     // Table-only filters should refresh the table and return to page one.
     el("bill-search").addEventListener("input", () => {
