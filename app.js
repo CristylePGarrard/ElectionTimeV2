@@ -692,6 +692,11 @@ function renderTable() {
     const chamber = text(bill.chamber) === "House" ? "State House" : text(bill.chamber) === "Senate" ? "State Senate" : "";
     const sessionType = text(bill.session_type) || "Session";
     const date = billDate(bill);
+    const legislatorName = text(bill.legislator_name);
+    const displayName = legislatorName || text(bill.sponsor) || "Unknown";
+    const legislatorCell = legislatorName
+      ? '<button type="button" class="table-filter-link" data-legislator="' + escapeHtml(legislatorName) + '">' + escapeHtml(displayName) + '</button>'
+      : '<span>' + escapeHtml(displayName) + '</span>';
     const candidateBadge = isIncumbentRunning2026(bill) ? ' <span class="candidate-badge">Running in 2026</span>' : '';
     const url = text(bill.bill_url);
     const officialLink = /^https:\/\//i.test(url)
@@ -700,10 +705,8 @@ function renderTable() {
     return '<tr>' +
       '<td><span class="bill-number">' + escapeHtml(billNumber) + '</span><span class="subtext">' + escapeHtml(chamber) + '</span></td>' +
       '<td><div class="bill-title">' + escapeHtml(title) + '</div><span class="subtext">' + escapeHtml(bill.sponsor || "") + '</span></td>' +
-      '<td><button type="button" class="table-filter-link" data-legislator="' + escapeHtml(bill.legislator_name || bill.sponsor || "Unknown") + '">' + escapeHtml(bill.legislator_name || bill.sponsor || "Unknown") + '</button>' + (bill.matched_party ? '<span class="subtext">' + escapeHtml(bill.matched_party) + (bill.matched_district ? ' · Dist. ' + escapeHtml(bill.matched_district) : '') + '</span>' : '') + '</td>' +
+      '<td>' + legislatorCell + (bill.matched_party ? '<span class="subtext">' + escapeHtml(bill.matched_party) + (bill.matched_district ? ' · Dist. ' + escapeHtml(bill.matched_district) : '') + '</span>' : '') + '</td>' +
       '<td><button type="button" class="table-filter-link year-filter-link" data-year="' + escapeHtml(bill.year) + '" data-session="' + escapeHtml(sessionType) + '">' + escapeHtml(bill.year) + '</button><span class="subtext">' + escapeHtml(sessionType) + '</span>' + (date ? '<span class="subtext">' + escapeHtml(date) + '</span>' : '') + '</td>' +
-      '<td><span class="legislator-name">' + escapeHtml(bill.legislator_name || bill.sponsor || "Unknown") + '</span>' + candidateBadge + (bill.matched_party ? '<span class="subtext">' + escapeHtml(bill.matched_party) + (bill.matched_district ? ' · Dist. ' + escapeHtml(bill.matched_district) : '') + '</span>' : '') + '</td>' +
-      '<td>' + escapeHtml(bill.year) + '<span class="subtext">' + escapeHtml(sessionType) + '</span>' + (date ? '<span class="subtext">' + escapeHtml(date) + '</span>' : '') + '</td>' +
       '<td><span class="outcome-pill ' + pillClass + '">' + kind + '</span></td>' +
       '<td>' + officialLink + '</td>' +
       '</tr>';
@@ -942,26 +945,29 @@ async function init() {
     });
 
     el("bill-table-body").addEventListener("click", (event) => {
-      const legislatorButton = event.target.closest("[data-legislator]");
+      const target = event.target instanceof Element ? event.target : event.target.parentElement;
+      const legislatorButton = target.closest("button[data-legislator]");
       if (legislatorButton) {
         const name = legislatorButton.dataset.legislator;
         const select = el("legislator-select");
-        if ([...select.options].some((option) => option.value === name)) {
-          select.value = name;
+        const matchingOption = [...select.options].find((option) => option.value === name);
+        if (matchingOption) {
+          select.value = matchingOption.value;
           onPrimaryFilterChange("legislator");
           el("bill-table-body").closest(".bills-panel").scrollIntoView({ behavior: "smooth", block: "start" });
         }
         return;
       }
-      const yearButton = event.target.closest("[data-year]");
+
+      const yearButton = target.closest("button[data-year]");
       if (yearButton) {
         const year = yearButton.dataset.year;
         const session = yearButton.dataset.session;
-        el("year-select").value = [...el("year-select").options].some((option) => option.value === year) ? year : "All";
-        el("session-select").value = [...el("session-select").options].some((option) => option.value === session) ? session : "All";
-        state.page = 1;
+        const yearSelect = el("year-select");
+        const sessionSelect = el("session-select");
+        yearSelect.value = [...yearSelect.options].some((option) => option.value === year) ? year : "All";
+        sessionSelect.value = [...sessionSelect.options].some((option) => option.value === session) ? session : "All";
         onPrimaryFilterChange("year");
-        render();
         el("bill-table-body").closest(".bills-panel").scrollIntoView({ behavior: "smooth", block: "start" });
       }
     });
