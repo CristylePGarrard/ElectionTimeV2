@@ -325,10 +325,13 @@ function renderHeader(bills) {
       BALLARDMELISSAG: "BALLAMG.jpg"
     };
     const lastName = text(nameParts[0]).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z]/g, "").toUpperCase().slice(0, 5);
-    const firstNameParts = text(nameParts[1]).trim().split(/\s+/);
-    const firstInitial = firstNameParts[0] ? firstNameParts[0][0].normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z]/g, "").toUpperCase() : "";
+    const firstNameParts = text(nameParts[1]).trim().split(/\s+/).filter(Boolean);
+    const initials = firstNameParts
+      .slice(0, 2)
+      .map(part => part[0].normalize("NFD").replace(/[^A-Za-z]/g, "").toUpperCase())
+      .join("");
     const chamberPath = text(memberRecord.chamber).toLowerCase();
-    const filename = photoFilenameOverrides[normalizedName] || (lastName && firstInitial ? lastName + firstInitial + ".jpg" : "");
+    const filename = photoFilenameOverrides[normalizedName] || (lastName && initials ? lastName + initials + ".jpg" : "");
     if (filename && ["house", "senate"].includes(chamberPath)) {
       photo.src = "https://le.utah.gov/images/legislator/" + chamberPath + "/" + filename;
       photo.alt = "Photo of " + selected.replace(",", "");
