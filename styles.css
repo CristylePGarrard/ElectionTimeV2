@@ -256,3 +256,35 @@ tbody tr:last-child td { border-bottom: 0; }
   .legislator-photo { width: 68px; height: 82px; }
   .selected-person-info { gap: 12px; }
 }
+
+
+/* 2026 incumbent candidate indicators */
+.candidate-filter-field { min-width: 205px; }
+.candidate-badge {
+  display: inline-block;
+  margin: 3px 0 0 6px;
+  padding: 3px 6px;
+  border: 1px solid #c8e4d7;
+  border-radius: 5px;
+  background: #e5f3eb;
+  color: #236a4e;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1.35;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+#view-title.incumbent-running-title::after {
+  content: attr(data-candidate-badge);
+  display: inline-block;
+  margin-left: 10px;
+  padding: 4px 7px;
+  border: 1px solid #c8e4d7;
+  border-radius: 5px;
+  background: #e5f3eb;
+  color: #236a4e;
+  font: 700 9px 'DM Sans', sans-serif;
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+#incumbent-candidate-select:disabled { opacity: .65; }
