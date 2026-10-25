@@ -654,12 +654,25 @@ async function initDistrictMap() {
         layer.on("click", () => {
           const key = text(props.district_key) || (chamber + "|" + district);
           const districtSelect = el("district-select");
+
+          // Clicking the already-selected district clears that selection.
+          if (districtSelect.value === key) {
+            districtSelect.value = "";
+            populateDistricts();
+            onPrimaryFilterChange("district");
+            const allBounds = state.districtLayer.getBounds();
+            if (allBounds.isValid()) {
+              state.districtMap.fitBounds(allBounds, { padding: [12, 12] });
+            }
+            return;
+          }
+
           if (![...districtSelect.options].some((option) => option.value === key)) {
             // Refresh options against the active year/chamber before selecting.
             el("year-select").value = "All";
             populateDistricts();
           }
-          el("district-select").value = key;
+          districtSelect.value = key;
           onPrimaryFilterChange("district");
           el("district-map").scrollIntoView({ behavior: "smooth", block: "nearest" });
         });
