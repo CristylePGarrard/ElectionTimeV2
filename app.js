@@ -47,14 +47,15 @@ function unique(values) {
 }
 
 
-function normalizePersonName(value) {
-  const raw = text(value).toUpperCase().replace(/[^A-Z0-9, ]/g, " ").replace(/\s+/g, " ").trim();
-  const parts = raw.includes(",")
-    ? raw.split(",").map(part => part.trim())
-    : [raw];
-  const ordered = raw.includes(",") ? (parts[1] + " " + parts[0]).trim() : raw;
-  const tokens = ordered.split(/\s+/).filter(Boolean);
-  return tokens.length >= 2 ? tokens[0] + "|" + tokens[tokens.length - 1] : ordered;
+function nameTokens(value) {
+  return text(value)
+    .toUpperCase()
+    .replace(/[^A-Z0-9, ]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/,/g, " ")
+    .split(" ")
+    .filter(Boolean);
 }
 
 function candidateOffice(candidate) {
@@ -68,28 +69,49 @@ function candidateOffice(candidate) {
 }
 
 function incumbentCandidateKey(chamber, district, legislatorName) {
-  return chamber + "|" + String(Number(district)) + "|" + normalizePersonName(legislatorName);
+  return chamber + "|" + String(Number(district)) + "|" + text(legislatorName).trim().toUpperCase();
+}
+
+function namesMatch(candidateName, legislatorName) {
+  const candidateTokens = nameTokens(candidateName);
+  const memberTokens = nameTokens(legislatorName);
+  if (candidateTokens.length < 2 || memberTokens.length < 2) return false;
+
+  // Candidate records use "First Middle Last"; some legislative bill data
+  // uses "Last First Middle" without a comma (e.g. "Adams J Stuart").
+  const candidateFirst = candidateTokens[0];
+  const candidateLast = candidateTokens[candidateTokens.length - 1];
+  const memberFirst = memberTokens[0];
+  const memberLast = memberTokens[memberTokens.length - 1];
+
+  const sameSurname = candidateLast === memberLast || candidateLast === memberFirst;
+  const memberGivenNames = candidateLast === memberFirst
+    ? memberTokens.slice(1)
+    : memberTokens.slice(0, -1);
+
+  return sameSurname && memberGivenNames.includes(candidateFirst);
 }
 
 function buildIncumbentCandidateMatches() {
-  const currentMembers = new Map();
-  state.allBills.forEach((bill) => {
-    const chamber = text(bill.chamber);
-    const district = text(bill.matched_district);
-    const name = text(bill.legislator_name);
-    if (!["House", "Senate"].includes(chamber) || !district || !name) return;
-    const key = incumbentCandidateKey(chamber, district, name);
-    currentMembers.set(key, { chamber, district, name });
-  });
-
   const runningKeys = new Set();
+
   state.candidates2026.forEach((candidate) => {
     if (text(candidate.Status).toLowerCase() !== "election candidate") return;
     const office = candidateOffice(candidate);
-    if (!office || !text(candidate.Candidate)) return;
-    const key = incumbentCandidateKey(office.chamber, office.district, candidate.Candidate);
-    if (currentMembers.has(key)) runningKeys.add(key);
+    const candidateName = text(candidate.Candidate);
+    if (!office || !candidateName) return;
+
+    state.allBills.forEach((bill) => {
+      const chamber = text(bill.chamber);
+      const district = text(bill.matched_district);
+      const legislatorName = text(bill.legislator_name);
+      if (chamber !== office.chamber || String(Number(district)) !== office.district || !legislatorName) return;
+      if (namesMatch(candidateName, legislatorName)) {
+        runningKeys.add(incumbentCandidateKey(chamber, district, legislatorName));
+      }
+    });
   });
+
   state.incumbentCandidateKeys = runningKeys;
 }
 
@@ -166,29 +188,35 @@ function populateLegislators() {
   const current = select.value;
   const filters = getFilters();
 
-  const options = unique(
-    state.allBills
-      .filter((bill) =>
-        filters.chamber === "All" ||
-        text(bill.chamber) === filters.chamber
-      )
-      .filter((bill) =>
-        filters.year === "All" ||
-        String(bill.year) === filters.year
-      )
-      .filter((bill) =>
-        !filters.district ||
-        (text(bill.chamber) + "|" + text(bill.matched_district)) ===
-          filters.district
-      )
-      .map((bill) => text(bill.legislator_name))
-      .sort((a, b) => a.localeCompare(b))
-  );
+  const memberNames = new Map();
+  state.allBills
+    .filter((bill) =>
+      filters.chamber === "All" ||
+      text(bill.chamber) === filters.chamber
+    )
+    .filter((bill) =>
+      filters.year === "All" ||
+      String(bill.year) === filters.year
+    )
+    .filter((bill) =>
+      !filters.district ||
+      (text(bill.chamber) + "|" + text(bill.matched_district)) === filters.district
+    )
+    .filter((bill) => !filters.incumbentCandidates || isIncumbentRunning2026(bill))
+    .forEach((bill) => {
+      const name = text(bill.legislator_name);
+      if (name) memberNames.set(name, bill);
+    });
 
+  const options = [...memberNames.keys()].sort((a, b) => a.localeCompare(b));
   select.replaceChildren(new Option("All legislators", ""));
 
   options.forEach((name) => {
-    select.add(new Option(name, name));
+    const bill = memberNames.get(name);
+    const label = filters.incumbentCandidates && isIncumbentRunning2026(bill)
+      ? name + " · Running in 2026"
+      : name;
+    select.add(new Option(label, name));
   });
 
   select.value = options.includes(current) ? current : "";
@@ -876,6 +904,8 @@ async function init() {
     });
 
     el("incumbent-candidate-select").addEventListener("change", () => {
+      // Keep the legislator dropdown in sync with the candidate-only view.
+      populateLegislators();
       state.page = 1;
       render();
     });
