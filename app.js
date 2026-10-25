@@ -110,7 +110,7 @@ async function loadCandidates2026() {
     state.candidates2026 = candidates.filter((candidate) => candidate && typeof candidate === "object");
     buildIncumbentCandidateMatches();
     const filter = el("incumbent-candidate-select");
-    if (filter) filter.disabled = state.incumbentCandidateKeys.size === 0;
+    if (filter) filter.disabled = false;
     return true;
   } catch (error) {
     console.error("Could not load 2026 candidates:", error);
