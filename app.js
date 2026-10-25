@@ -320,12 +320,18 @@ function renderHeader(bills) {
   const photo = el("legislator-photo");
   if (selected && memberRecord) {
     const nameParts = selected.split(",");
+    const normalizedName = text(selected).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z]/g, "").toUpperCase();
+    const photoFilenameOverrides = {
+      BALLARDMELISSAG: "BALLAMG.jpg"
+    };
     const lastName = text(nameParts[0]).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z]/g, "").toUpperCase().slice(0, 5);
-    const firstName = text(nameParts[1]).trim().split(/\s+/)[0];
-    const firstInitial = firstName ? firstName[0].normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z]/g, "").toUpperCase() : "";
+    const firstNameParts = text(nameParts[1]).trim().split(/\s+/);
+    const firstInitial = firstNameParts[0] ? firstNameParts[0][0].normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z]/g, "").toUpperCase() : "";
+    const middleInitial = firstNameParts[1] ? firstNameParts[1][0].normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z]/g, "").toUpperCase() : "";
     const chamberPath = text(memberRecord.chamber).toLowerCase();
-    if (lastName && firstInitial && ["house", "senate"].includes(chamberPath)) {
-      photo.src = "https://le.utah.gov/images/legislator/" + chamberPath + "/" + lastName + firstInitial + ".jpg";
+    const filename = photoFilenameOverrides[normalizedName] || (lastName && firstInitial ? lastName + firstInitial + ".jpg" : "");
+    if (filename && ["house", "senate"].includes(chamberPath)) {
+      photo.src = "https://le.utah.gov/images/legislator/" + chamberPath + "/" + filename;
       photo.alt = "Photo of " + selected.replace(",", "");
       photo.hidden = false;
       photo.onerror = () => { photo.hidden = true; photo.removeAttribute("src"); };
