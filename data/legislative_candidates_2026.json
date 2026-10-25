@@ -1,0 +1,1766 @@
+[
+  {
+    "Candidate":"JASON O'DELL",
+    "Office":"State House District 1 (Multi-County)",
+    "Party":"Constitution",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"THOMAS PETERSON",
+    "Office":"State House District 1 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"CHRIS REID",
+    "Office":"State House District 1 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ROSEMARY T LESSER",
+    "Office":"State House District 10",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JIM ALVEY",
+    "Office":"State House District 10",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JULIENE M SNYDER",
+    "Office":"State House District 10",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"DANIEL C. MATERN",
+    "Office":"State House District 10",
+    "Party":"Democratic",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"KATY HALL",
+    "Office":"State House District 11 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"DAVE CALDER",
+    "Office":"State House District 11 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JOSH R KOSKAN",
+    "Office":"State House District 11 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"ANNA GRAFF",
+    "Office":"State House District 12 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"MIKE SCHULTZ",
+    "Office":"State House District 12 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"DAVA ANN NEAL",
+    "Office":"State House District 12 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"SHAWN FERRIOLA",
+    "Office":"State House District 12 (Multi-County)",
+    "Party":"Forward",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"ERIK R. CRAYTHORNE",
+    "Office":"State House District 13",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JEFFREY ANDERSON",
+    "Office":"State House District 13",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"TONY DE MILLE",
+    "Office":"State House District 13",
+    "Party":"Forward",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ROXAYN ELMER",
+    "Office":"State House District 13",
+    "Party":"Republican",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"JOHN TAYLOR",
+    "Office":"State House District 14",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"BRANDON YOUNG",
+    "Office":"State House District 14",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"KARA TOONE",
+    "Office":"State House District 14",
+    "Party":"Republican",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"ANNE BERBERT",
+    "Office":"State House District 15",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ARIEL DEFAY",
+    "Office":"State House District 15",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ERIK KLAUSER",
+    "Office":"State House District 15",
+    "Party":"Democratic",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"ABIGAIL TREASURE",
+    "Office":"State House District 16",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"BOB J STEVENSON",
+    "Office":"State House District 16",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"TREVOR LEE",
+    "Office":"State House District 16",
+    "Party":"Republican",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"LILI BITNER",
+    "Office":"State House District 17",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ERIC LAST",
+    "Office":"State House District 17",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ADAM SORENSON",
+    "Office":"State House District 17",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"SAM BARLOW",
+    "Office":"State House District 17",
+    "Party":"Republican",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"JORGE QUINONES",
+    "Office":"State House District 17",
+    "Party":"Democratic",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"KIMBERLY WAGNER",
+    "Office":"State House District 17",
+    "Party":"Forward",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"SCOTT TROXEL",
+    "Office":"State House District 18",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"PAUL CUTLER",
+    "Office":"State House District 18",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"RAYMOND P. WARD",
+    "Office":"State House District 19",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"MIKE PETERSEN",
+    "Office":"State House District 2",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"BARBARA J. HAGGERTY",
+    "Office":"State House District 2",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"MELISSA BALLARD",
+    "Office":"State House District 20",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"PHIL GRAVES",
+    "Office":"State House District 20",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"LEW JEPPSON",
+    "Office":"State House District 20",
+    "Party":"Democratic",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"STEPHEN OTTERSTROM",
+    "Office":"State House District 21",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"DARIN W MANN",
+    "Office":"State House District 21",
+    "Party":"Democratic",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"ANTHONY WASHBURN",
+    "Office":"State House District 21",
+    "Party":"Democratic",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"JENEANNE LOCK",
+    "Office":"State House District 21",
+    "Party":"Democratic",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"AARON WILEY",
+    "Office":"State House District 21",
+    "Party":"Democratic",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"JAMES ORD",
+    "Office":"State House District 21",
+    "Party":"Democratic",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"CHAR VARGA",
+    "Office":"State House District 22",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JEN DAILEY-PROVOST",
+    "Office":"State House District 22",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"PAUL ROCKWOOD",
+    "Office":"State House District 22",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"CABOT W NELSON",
+    "Office":"State House District 23 (Multi-County)",
+    "Party":"Forward",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"FRANKLIN D. ROBINSON",
+    "Office":"State House District 23 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"HOANG NGUYEN",
+    "Office":"State House District 23 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"MICHAEL FARRELL",
+    "Office":"State House District 23 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"JUDY Y DARBY",
+    "Office":"State House District 23 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"GRANT AMJAD MILLER",
+    "Office":"State House District 24",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"BRAEDEN J. OSWALD",
+    "Office":"State House District 24",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"RICHARD T NOWAK",
+    "Office":"State House District 25",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ANGELA ROMERO",
+    "Office":"State House District 25",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"GIOVANNI HERNANDEZ",
+    "Office":"State House District 25",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"MICHAEL E FINCH",
+    "Office":"State House District 26",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"MATT MACPHERSON",
+    "Office":"State House District 26",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"DARRELL R CURTIS",
+    "Office":"State House District 26",
+    "Party":"Democratic",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"TRAVIS ALICO",
+    "Office":"State House District 26",
+    "Party":"Forward",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"ANTHONY LOUBET",
+    "Office":"State House District 27",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"LIZ OATES",
+    "Office":"State House District 27",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JEFFREY MARSHALL",
+    "Office":"State House District 27",
+    "Party":"Forward",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"NICHOLEEN PECK",
+    "Office":"State House District 28",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"WALES NEMATOLLAHI",
+    "Office":"State House District 28",
+    "Party":"Forward",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ANITA DALRYMPLE",
+    "Office":"State House District 28",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"STEPHANIE BAGWELL",
+    "Office":"State House District 28",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"SHELDON BIRCH",
+    "Office":"State House District 29 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"SARA SNOW",
+    "Office":"State House District 29 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"TYNLEY BEAN",
+    "Office":"State House District 29 (Multi-County)",
+    "Party":"Forward",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JONATHAN GARRARD",
+    "Office":"State House District 29 (Multi-County)",
+    "Party":"Constitution",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JUSTIN NIELSON",
+    "Office":"State House District 29 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"ALEXIS WHEELER",
+    "Office":"State House District 29 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"HOLLY CROWLEY",
+    "Office":"State House District 29 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"JASON E. THOMPSON",
+    "Office":"State House District 3",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"PATRICK BELMONT",
+    "Office":"State House District 3",
+    "Party":"Unaffiliated",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"BEN SHAW",
+    "Office":"State House District 3",
+    "Party":"Forward",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"DAVE PARKE",
+    "Office":"State House District 30",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JAKE FITISEMANU",
+    "Office":"State House District 30",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"FRED C. COX",
+    "Office":"State House District 30",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"MELODY JONES",
+    "Office":"State House District 31",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"VERONA MAUGA",
+    "Office":"State House District 31",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"AILEEN HAMPTON",
+    "Office":"State House District 32",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"SAHARA HAYES",
+    "Office":"State House District 32",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"DOUG OWENS",
+    "Office":"State House District 33",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ANNA REEVES",
+    "Office":"State House District 33",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"GERALD BURT",
+    "Office":"State House District 33",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"JULIE JACKSON",
+    "Office":"State House District 34",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ERIN JEMISON",
+    "Office":"State House District 34",
+    "Party":"Democratic",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"MONIQUE I. KETCHAM",
+    "Office":"State House District 35",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ROSALBA DOMINGUEZ",
+    "Office":"State House District 35",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"MARLOW DRANEY",
+    "Office":"State House District 35",
+    "Party":"Republican",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"ANDREW UZ",
+    "Office":"State House District 35",
+    "Party":"Republican",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"JIM DUNNIGAN",
+    "Office":"State House District 36",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"BLAKE TOWNSEND",
+    "Office":"State House District 36",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ALBERT MOSLEY II",
+    "Office":"State House District 36",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"JON HANSON",
+    "Office":"State House District 36",
+    "Party":"Democratic",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"ASHLEE MATTHEWS",
+    "Office":"State House District 37",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"CASEY SAXTON",
+    "Office":"State House District 37",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"SERGIO SOTELO",
+    "Office":"State House District 38",
+    "Party":"Unaffiliated",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"CHRIS MCCONNEHEY",
+    "Office":"State House District 38",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"GLORIA VINDAS",
+    "Office":"State House District 38",
+    "Party":"Republican",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"DREW HOWELLS",
+    "Office":"State House District 39",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"KEN IVORY",
+    "Office":"State House District 39",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"KEVIN SEAL",
+    "Office":"State House District 39",
+    "Party":"Democratic",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"LISA DEAN",
+    "Office":"State House District 39",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"RYAN JACKSON",
+    "Office":"State House District 39",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"SARAH BROUGH",
+    "Office":"State House District 39",
+    "Party":"Democratic",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"TIARA AUXIER",
+    "Office":"State House District 4 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ZANE WOOLSTENHULME",
+    "Office":"State House District 4 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"KRIS CAMPBELL",
+    "Office":"State House District 4 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"ZEPPELIN ZEERIP",
+    "Office":"State House District 4 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"BRANDI CONNOLLY",
+    "Office":"State House District 4 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"JOHN JACKSON",
+    "Office":"State House District 40",
+    "Party":"Forward",
+    "Status":"Deceased"
+  },
+  {
+    "Candidate":"ANDREW STODDARD",
+    "Office":"State House District 40",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"WENDY DAVIS",
+    "Office":"State House District 40",
+    "Party":"Democratic",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"DARREN CROFT",
+    "Office":"State House District 41",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JOHN ARTHUR",
+    "Office":"State House District 41",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"STEVE ASTE",
+    "Office":"State House District 41",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"STEPHEN MILLER",
+    "Office":"State House District 41",
+    "Party":"Democratic",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"ERYN A RUSSO",
+    "Office":"State House District 41",
+    "Party":"Republican",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"CLINT OKERLUND",
+    "Office":"State House District 42",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"IVA WILLIAMS",
+    "Office":"State House District 42",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"STEVE ELIASON",
+    "Office":"State House District 43",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"OFA MATAGI",
+    "Office":"State House District 43",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JESS BIRTCHER",
+    "Office":"State House District 44",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JORDAN TEUSCHER",
+    "Office":"State House District 44",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"SCOTT STEPHENSON",
+    "Office":"State House District 44",
+    "Party":"Republican",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"TRACY MILLER",
+    "Office":"State House District 45",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ROD MOSER",
+    "Office":"State House District 45",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"BRAXTEN RUTHERFORD",
+    "Office":"State House District 46",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"CAL ROBERTS",
+    "Office":"State House District 46",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"SERENA AESCHILMAN",
+    "Office":"State House District 47",
+    "Party":"Unaffiliated",
+    "Status":"Disqualified"
+  },
+  {
+    "Candidate":"MARK A. STRONG",
+    "Office":"State House District 47",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"BENYDE WALKER",
+    "Office":"State House District 48",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JAKE HUNSAKER",
+    "Office":"State House District 48",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"MERRILL KUNZ",
+    "Office":"State House District 48",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"JOHNATHAN BROOKS",
+    "Office":"State House District 48",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"NIK ANDERSON",
+    "Office":"State House District 48",
+    "Party":"Republican",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"LILLIAN BOWLES",
+    "Office":"State House District 49",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"CANDICE B. PIERUCCI",
+    "Office":"State House District 49",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"KENDRA PENRY",
+    "Office":"State House District 5",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"CASEY SNIDER",
+    "Office":"State House District 5",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JIM ATKINSON",
+    "Office":"State House District 5",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"STEPHANIE GRICIUS",
+    "Office":"State House District 50",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"KRISTIN MEYER",
+    "Office":"State House District 50",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"LEAH HANSEN",
+    "Office":"State House District 51",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"BRETT NIELSEN",
+    "Office":"State House District 51",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"NICOLE MELLING",
+    "Office":"State House District 52",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"CORY MALOY",
+    "Office":"State House District 52",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"CHARLIE TAUTUAA",
+    "Office":"State House District 52",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"CHARLIE TAUTUAA",
+    "Office":"State House District 52",
+    "Party":"",
+    "Status":"Write-In"
+  },
+  {
+    "Candidate":"KEVIN R SLATER",
+    "Office":"State House District 53",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"KAY J. CHRISTOFFERSON",
+    "Office":"State House District 53",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JOHN BOYD",
+    "Office":"State House District 53",
+    "Party":"Forward",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"KRISTINA ROBINSON",
+    "Office":"State House District 54",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"KRISTEN S. CHEVRIER",
+    "Office":"State House District 54",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"TRAVIS HYSELL",
+    "Office":"State House District 55",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JON HAWKINS",
+    "Office":"State House District 55",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"CHELSEY COOK",
+    "Office":"State House District 55",
+    "Party":"Democratic",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"NATASSJA GROSSMAN",
+    "Office":"State House District 56",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"VAL L. PETERSON",
+    "Office":"State House District 56",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"BRETT GONZALEZ",
+    "Office":"State House District 56",
+    "Party":"Democratic",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"NELSON ABBOTT",
+    "Office":"State House District 57",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ARCHIE WILLIAMS",
+    "Office":"State House District 57",
+    "Party":"Democratic",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"NANCY LEE PETERSON",
+    "Office":"State House District 57",
+    "Party":"",
+    "Status":"Write-In"
+  },
+  {
+    "Candidate":"DAVID SHALLENBERGER",
+    "Office":"State House District 58",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"KARLI BLACK",
+    "Office":"State House District 58",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"CELESTE T. JOHNSON",
+    "Office":"State House District 59 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"LUKE SEARLE",
+    "Office":"State House District 59 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"MARK S. ALLEN",
+    "Office":"State House District 59 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"MICAH KAGAN",
+    "Office":"State House District 59 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"JEFFREY PIERCE",
+    "Office":"State House District 59 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"JAMES RICH",
+    "Office":"State House District 6 (Multi-County)",
+    "Party":"Forward",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ROB BISHOP",
+    "Office":"State House District 6 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"BRAD B. BARROWES",
+    "Office":"State House District 6 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"KERRY M WAYNE",
+    "Office":"State House District 6 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"MCKAY JENSEN",
+    "Office":"State House District 60",
+    "Party":"Republican",
+    "Status":"Disqualified"
+  },
+  {
+    "Candidate":"GRANT PACE",
+    "Office":"State House District 60",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"NIKAELA PENROD",
+    "Office":"State House District 60",
+    "Party":"Republican",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"LISA SHEPHERD",
+    "Office":"State House District 61",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ALAN JIMENEZ",
+    "Office":"State House District 61",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JENNIFER K DOUD",
+    "Office":"State House District 61",
+    "Party":"Constitution",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"MELANIE CRAGHEAD",
+    "Office":"State House District 61",
+    "Party":"Democratic",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"CYNTHIA WREN",
+    "Office":"State House District 61",
+    "Party":"Democratic",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"TOM WAQA",
+    "Office":"State House District 61",
+    "Party":"Republican",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"NORM THURSTON",
+    "Office":"State House District 62",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"DAVID CHAPPELL",
+    "Office":"State House District 62",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JONAH JOHNSON",
+    "Office":"State House District 62",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"MARK YOUNGQUIST",
+    "Office":"State House District 63",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"STEPHEN L. WHYTE",
+    "Office":"State House District 63",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JULIE SMITH",
+    "Office":"State House District 63",
+    "Party":"Forward",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ALAN WESSMAN",
+    "Office":"State House District 64",
+    "Party":"Unaffiliated",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JACKIE LARSON",
+    "Office":"State House District 64",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"MATTHEW DURRANT",
+    "Office":"State House District 64",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"JEFF BURTON",
+    "Office":"State House District 64",
+    "Party":"Republican",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"DOUG WELTON",
+    "Office":"State House District 65",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"RUSS HATCH",
+    "Office":"State House District 66 (Multi-County)",
+    "Party":"Constitution",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"BREANNE MASHEK",
+    "Office":"State House District 66 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"TROY SHELLEY",
+    "Office":"State House District 66 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JUSTIN ZOHNER",
+    "Office":"State House District 66 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"CARL INGWELL",
+    "Office":"State House District 67 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JR BIRD",
+    "Office":"State House District 67 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"GINA GAGON",
+    "Office":"State House District 67 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"YVONNE H JENSEN",
+    "Office":"State House District 67 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"SONYA RAY",
+    "Office":"State House District 68 (Multi-County)",
+    "Party":"Constitution",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"SCOTT H CHEW",
+    "Office":"State House District 68 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"TRACIE YELLOWMAN TSO",
+    "Office":"State House District 69 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"LOGAN J. MONSON",
+    "Office":"State House District 69 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"DANIEL GARDNER",
+    "Office":"State House District 69 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"TARA BENALLY",
+    "Office":"State House District 69 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"BIANCA MITTENDORF",
+    "Office":"State House District 7",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"RYAN D. WILCOX",
+    "Office":"State House District 7",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"CARL R. ALBRECHT",
+    "Office":"State House District 70 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ZENO B. PARRY",
+    "Office":"State House District 70 (Multi-County)",
+    "Party":"Forward",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"STACEY D. PENDERGRAFT",
+    "Office":"State House District 70 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"REX P SHIPP",
+    "Office":"State House District 71",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"THOMAS LOVEHEART",
+    "Office":"State House District 71",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"EVA M WELDON",
+    "Office":"State House District 72",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"APRIL A PINKSTON",
+    "Office":"State House District 72",
+    "Party":"Constitution",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JOSEPH ELISON",
+    "Office":"State House District 72",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"GLENN D WEBB",
+    "Office":"State House District 73",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"COLIN W. JACK",
+    "Office":"State House District 73",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"R. NEIL WALTER",
+    "Office":"State House District 74",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JEFFREY N LIPE",
+    "Office":"State House District 74",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"REBECCA WINSOR",
+    "Office":"State House District 75",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"WALT BROOKS",
+    "Office":"State House District 75",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"APRIL SUBASHE",
+    "Office":"State House District 75",
+    "Party":"Democratic",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"KIM JAMES",
+    "Office":"State House District 8 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"LIBBY SHELTON",
+    "Office":"State House District 8 (Multi-County)",
+    "Party":"Forward",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JASON B KYLE",
+    "Office":"State House District 8 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JAKE SAWYER",
+    "Office":"State House District 9",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ANGELA CHOBERKA",
+    "Office":"State House District 9",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ROGER BORDLEY",
+    "Office":"State House District 9",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"ALLEN E. MILLER",
+    "Office":"State House District 9",
+    "Party":"Republican",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"FRED HAYES",
+    "Office":"State Senate District 1 (Multi-County)",
+    "Party":"",
+    "Status":"Disqualified"
+  },
+  {
+    "Candidate":"CLAUDIA BIGLER",
+    "Office":"State Senate District 1 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"SCOTT SANDALL",
+    "Office":"State Senate District 1 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JULIE QUINLAN",
+    "Office":"State Senate District 1 (Multi-County)",
+    "Party":"Forward",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"FRED HAYES",
+    "Office":"State Senate District 1 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"EMILY BUSS",
+    "Office":"State Senate District 11 (Multi-County)",
+    "Party":"Forward",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"BROOKS BENSON",
+    "Office":"State Senate District 11 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JOHN KNOTWELL",
+    "Office":"State Senate District 11 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"CHRIS SLOAN",
+    "Office":"State Senate District 11 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"MACKENZIE MILLER",
+    "Office":"State Senate District 11 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"DEIDRE TYLER",
+    "Office":"State Senate District 12",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"KAREN KWAN",
+    "Office":"State Senate District 12",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"COLIN SMITH",
+    "Office":"State Senate District 13",
+    "Party":"Forward",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"RYAN L. MAHONEY",
+    "Office":"State Senate District 13",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"SILVIA CATTEN",
+    "Office":"State Senate District 13",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"RICHARD T. WHITNEY",
+    "Office":"State Senate District 13",
+    "Party":"Democratic",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"EVAN DONE",
+    "Office":"State Senate District 13",
+    "Party":"Democratic",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"TAYLOR J PADEN",
+    "Office":"State Senate District 13",
+    "Party":"Democratic",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"STEPHANIE PITCHER",
+    "Office":"State Senate District 14",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"TAYLER KHATER",
+    "Office":"State Senate District 14",
+    "Party":"Democratic",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"A DANE ANDERSON",
+    "Office":"State Senate District 18 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"DOUG FIEFIA",
+    "Office":"State Senate District 18 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"TRACIE HALVORSEN",
+    "Office":"State Senate District 18 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"DANIEL MCCAY",
+    "Office":"State Senate District 18 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"KIRK CULLIMORE",
+    "Office":"State Senate District 19 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"SHANA ANDERSON",
+    "Office":"State Senate District 19 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"SALVADOR GIOVE",
+    "Office":"State Senate District 19 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"ANNETTE MCRAE",
+    "Office":"State Senate District 20 (Multi-County)",
+    "Party":"Forward",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"RONALD M WINTERTON",
+    "Office":"State Senate District 20 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"SETH STEWART",
+    "Office":"State Senate District 21",
+    "Party":"",
+    "Status":"Disqualified"
+  },
+  {
+    "Candidate":"KANDEE MYERS",
+    "Office":"State Senate District 21",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"BRADY BRAMMER",
+    "Office":"State Senate District 21",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"WAYNE WOODFIELD",
+    "Office":"State Senate District 21",
+    "Party":"Forward",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"KELLY SMITH",
+    "Office":"State Senate District 21",
+    "Party":"Republican",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"SETH STEWART",
+    "Office":"State Senate District 21",
+    "Party":"Republican",
+    "Status":"Withdrew"
+  },
+  {
+    "Candidate":"TUCKER SMITH",
+    "Office":"State Senate District 23",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"KEITH GROVER",
+    "Office":"State Senate District 23",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"EVAN J VICKERS",
+    "Office":"State Senate District 28 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"RICHARD S ROBILLARD",
+    "Office":"State Senate District 28 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JILL F. KOFORD",
+    "Office":"State Senate District 5 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"\"CJ\" CHRISTINA HERNANDEZ",
+    "Office":"State Senate District 5 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"DAKOTA WURTH",
+    "Office":"State Senate District 5 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"JOSH SMITH",
+    "Office":"State Senate District 6",
+    "Party":"Forward",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"TAMI TRAN",
+    "Office":"State Senate District 6",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JARED NEAL",
+    "Office":"State Senate District 6",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"ROBERT WANLASS",
+    "Office":"State Senate District 6",
+    "Party":"Republican",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"STEPHANIE HOLLIST",
+    "Office":"State Senate District 7 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JEFFREY OSTLER",
+    "Office":"State Senate District 7 (Multi-County)",
+    "Party":"Constitution",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"GARRET RUSHFORTH",
+    "Office":"State Senate District 7 (Multi-County)",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JENNIFER GARNER",
+    "Office":"State Senate District 7 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Convention"
+  },
+  {
+    "Candidate":"STUART ADAMS",
+    "Office":"State Senate District 7 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"BRADEN HESS",
+    "Office":"State Senate District 7 (Multi-County)",
+    "Party":"Republican",
+    "Status":"Out in Primary"
+  },
+  {
+    "Candidate":"THADDEUS A EVANS",
+    "Office":"State Senate District 9",
+    "Party":"Republican",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"JEN PLUMB",
+    "Office":"State Senate District 9",
+    "Party":"Democratic",
+    "Status":"Election Candidate"
+  },
+  {
+    "Candidate":"J. LOWRY SNOW",
+    "Office":"State Senate District 9",
+    "Party":"Forward",
+    "Status":"Election Candidate"
+  }
+]
