@@ -815,6 +815,21 @@ async function init() {
       el("bill-table-body").closest(".bills-panel").scrollIntoView({ behavior: "smooth", block: "start" });
     });
     el("reset-filters").addEventListener("click", resetFilters);
+
+    // Table-only filters should refresh the table and return to page one.
+    el("bill-search").addEventListener("input", () => {
+      state.page = 1;
+      renderTable();
+    });
+    el("session-select").addEventListener("change", () => {
+      state.page = 1;
+      renderTable();
+    });
+    // Outcome also controls the chart, so rerender the full dashboard.
+    el("outcome-select").addEventListener("change", () => {
+      state.page = 1;
+      render();
+    });
     el("stat-sponsored").closest(".stat-card").addEventListener("click", () => {
       el("bill-table-body").closest(".bills-panel").scrollIntoView({ behavior: "smooth", block: "start" });
     });
