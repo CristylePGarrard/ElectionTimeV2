@@ -327,7 +327,6 @@ function renderHeader(bills) {
     const lastName = text(nameParts[0]).normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z]/g, "").toUpperCase().slice(0, 5);
     const firstNameParts = text(nameParts[1]).trim().split(/\s+/);
     const firstInitial = firstNameParts[0] ? firstNameParts[0][0].normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z]/g, "").toUpperCase() : "";
-    const middleInitial = firstNameParts[1] ? firstNameParts[1][0].normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z]/g, "").toUpperCase() : "";
     const chamberPath = text(memberRecord.chamber).toLowerCase();
     const filename = photoFilenameOverrides[normalizedName] || (lastName && firstInitial ? lastName + firstInitial + ".jpg" : "");
     if (filename && ["house", "senate"].includes(chamberPath)) {
