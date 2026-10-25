@@ -276,3 +276,16 @@ thead th[data-sort] button:focus-visible { background: #e9f4ee; color: var(--tea
   color: var(--teal); text-decoration-color: currentColor; outline: none;
 }
 .year-filter-link { font-weight: 700; }
+
+
+/* Compact reset control beside the bill-table filters */
+.table-reset-button {
+  min-height: 43px;
+  padding: 9px 11px;
+  color: var(--teal-dark);
+  border-color: #c9e0d6;
+  flex: 0 0 auto;
+}
+@media (max-width: 800px) {
+  .table-reset-button { margin-left: auto; }
+}
