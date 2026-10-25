@@ -155,7 +155,9 @@ function getBaseBills() {
         text(bill.chamber) + "|" + text(bill.matched_district)
       ) === filters.district;
 
-    const candidateOkay = !filters.incumbentCandidates || isIncumbentRunning2026(bill);\n\n    return chamberOkay && yearOkay && legislatorOkay && districtOkay && candidateOkay;
+    const candidateOkay = !filters.incumbentCandidates || isIncumbentRunning2026(bill);
+
+    return chamberOkay && yearOkay && legislatorOkay && districtOkay && candidateOkay;
   });
 }
 
@@ -426,7 +428,9 @@ function renderHeader(bills) {
     photo.removeAttribute("src");
   }
 
-  el("view-title").textContent = title;\n  el("view-title").classList.toggle("incumbent-running-title", Boolean(memberRecord && isIncumbentRunning2026(memberRecord)));\n  el("view-title").setAttribute("data-candidate-badge", memberRecord && isIncumbentRunning2026(memberRecord) ? "Running in 2026" : "");
+  el("view-title").textContent = title;
+  el("view-title").classList.toggle("incumbent-running-title", Boolean(memberRecord && isIncumbentRunning2026(memberRecord)));
+  el("view-title").setAttribute("data-candidate-badge", memberRecord && isIncumbentRunning2026(memberRecord) ? "Running in 2026" : "");
   el("view-subtitle").textContent = details.length
     ? details.join(" · ")
     : selected
@@ -639,7 +643,8 @@ function renderTable() {
     const billNumber = text(bill.bill_number) || text(bill.bill_key) || "Bill";
     const chamber = text(bill.chamber) === "House" ? "State House" : text(bill.chamber) === "Senate" ? "State Senate" : "";
     const sessionType = text(bill.session_type) || "Session";
-    const date = billDate(bill);\n    const candidateBadge = isIncumbentRunning2026(bill) ? ' <span class="candidate-badge">Running in 2026</span>' : '';
+    const date = billDate(bill);
+    const candidateBadge = isIncumbentRunning2026(bill) ? ' <span class="candidate-badge">Running in 2026</span>' : '';
     const url = text(bill.bill_url);
     const officialLink = /^https:\/\//i.test(url)
       ? '<a class="record-link" href="' + escapeHtml(url) + '" target="_blank" rel="noreferrer">View bill ↗</a>'
@@ -820,7 +825,8 @@ function resetFilters() {
   el("year-select").value = "All";
   el("bill-search").value = "";
   el("session-select").value = "All";
-  el("outcome-select").value = "All";\n  el("incumbent-candidate-select").value = "All";
+  el("outcome-select").value = "All";
+  el("incumbent-candidate-select").value = "All";
   el("district-select").value = "";
   // Rebuild both dependent dropdowns after clearing all primary filters.
   // Otherwise the district list can retain the single district from a map click.
@@ -848,7 +854,8 @@ async function init() {
     state.allBills = data.filter((bill) => bill && typeof bill === "object");
     if (!state.allBills.length) throw new Error("The JSON file contains no bill records.");
 
-    await loadCandidates2026();\n    el("data-status").textContent = "Loaded " + numberFormat.format(state.allBills.length) + " bill records";
+    await loadCandidates2026();
+    el("data-status").textContent = "Loaded " + numberFormat.format(state.allBills.length) + " bill records";
     document.querySelector(".note-dot").classList.add("ready");
     populateLegislators();
     populateDistricts();
@@ -868,7 +875,12 @@ async function init() {
       });
     });
 
-    el("incumbent-candidate-select").addEventListener("change", () => {\n      state.page = 1;\n      render();\n    });\n\n    el("district-select").addEventListener("change", () => {
+    el("incumbent-candidate-select").addEventListener("change", () => {
+      state.page = 1;
+      render();
+    });
+
+    el("district-select").addEventListener("change", () => {
       onPrimaryFilterChange("district");
     });
 
