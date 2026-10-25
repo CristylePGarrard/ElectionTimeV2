@@ -763,6 +763,28 @@ async function init() {
       onPrimaryFilterChange("district");
     });
 
+    el("year-chart").addEventListener("click", (event) => {
+      const canvas = el("year-chart");
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const years = ["2023", "2024", "2025", "2026"];
+      const pad = { top: 24, right: 10, bottom: 34, left: 36 };
+      const plotWidth = Math.max(260, rect.width) - pad.left - pad.right;
+      const labelTop = Math.max(180, rect.height) - pad.bottom;
+
+      // Only toggle when the user clicks the year labels beneath the bars.
+      if (y < labelTop || y > labelTop + 24 || x < pad.left || x > rect.width - pad.right) return;
+      const slot = plotWidth / years.length;
+      const index = Math.floor((x - pad.left) / slot);
+      const year = years[index];
+      if (!year) return;
+
+      const yearSelect = el("year-select");
+      yearSelect.value = yearSelect.value === year ? "All" : year;
+      onPrimaryFilterChange("year");
+      el("bill-table-body").closest(".bills-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
     el("reset-filters").addEventListener("click", resetFilters);
     el("stat-sponsored").closest(".stat-card").addEventListener("click", () => {
       el("bill-table-body").closest(".bills-panel").scrollIntoView({ behavior: "smooth", block: "start" });
