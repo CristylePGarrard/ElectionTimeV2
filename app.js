@@ -5,7 +5,11 @@ const state = {
   allBills: [],
   filteredBills: [],
   page: 1,
-  canvasObserver: null
+  canvasObserver: null,
+  districtMap: null,
+  districtLayer: null,
+  districtFeatures: [],
+  selectedDistrictLayer: null
 };
 
 const el = (id) => document.getElementById(id);
@@ -536,12 +540,145 @@ function renderTable() {
   }).join("");
 }
 
+
+const DISTRICTS_URL = "./data/utah_districts.geojson";
+
+function selectedDistrictKey() {
+  const filters = getFilters();
+  if (filters.district) return filters.district;
+
+  if (filters.legislator) {
+    const person = state.allBills.find((bill) =>
+      text(bill.legislator_name) === filters.legislator &&
+      text(bill.chamber) &&
+      text(bill.matched_district) &&
+      ["House", "Senate"].includes(text(bill.chamber))
+    );
+    if (person) return text(person.chamber) + "|" + text(person.matched_district);
+  }
+  return "";
+}
+
+function districtStyle(feature) {
+  const properties = feature.properties || {};
+  const key = text(properties.district_key) ||
+    (text(properties.chamber) + "|" + text(properties.district));
+  const selectedKey = selectedDistrictKey();
+  const chamber = text(properties.chamber);
+  const chamberFilter = el("chamber-select").value;
+  const isSelected = Boolean(selectedKey && key === selectedKey);
+  const isDimmed = chamberFilter !== "All" && chamber !== chamberFilter;
+
+  return {
+    color: isSelected ? "#142b3b" : (chamber === "Senate" ? "#8b6b9b" : "#1c756d"),
+    weight: isSelected ? 3 : 1,
+    opacity: isDimmed ? 0.18 : 0.9,
+    fillColor: isSelected ? "#e5b85c" : (chamber === "Senate" ? "#cdbbd8" : "#9ed4c3"),
+    fillOpacity: isSelected ? 0.82 : (isDimmed ? 0.04 : 0.42)
+  };
+}
+
+function updateDistrictMap() {
+  if (!state.districtLayer) return;
+  state.districtLayer.setStyle(districtStyle);
+
+  const key = selectedDistrictKey();
+  const label = el("map-selection-label");
+  const status = el("map-status");
+
+  if (key) {
+    const [chamber, district] = key.split("|");
+    label.textContent = chamber.toUpperCase() + " · DISTRICT " + district;
+    status.textContent = "Highlighted " + chamber + " District " + district + ".";
+  } else {
+    label.textContent = el("chamber-select").value === "All"
+      ? "ALL DISTRICTS"
+      : el("chamber-select").value.toUpperCase() + " DISTRICTS";
+    status.textContent = "Choose a district on the map or with the filters above.";
+  }
+
+  if (state.districtMap && key) {
+    const feature = state.districtFeatures.find((item) => {
+      const props = item.properties || {};
+      return (text(props.district_key) ||
+        (text(props.chamber) + "|" + text(props.district))) === key;
+    });
+    if (feature) {
+      const bounds = L.geoJSON(feature).getBounds();
+      if (bounds.isValid()) state.districtMap.fitBounds(bounds, { padding: [24, 24], maxZoom: 9 });
+    }
+  }
+}
+
+async function initDistrictMap() {
+  const mapContainer = el("district-map");
+  if (!mapContainer) return;
+
+  if (typeof L === "undefined") {
+    mapContainer.innerHTML = '<p class="map-error">The map library could not load. Check your internet connection and refresh.</p>';
+    el("map-status").textContent = "Map library unavailable.";
+    return;
+  }
+
+  try {
+    const response = await fetch(DISTRICTS_URL, { cache: "no-store" });
+    if (!response.ok) throw new Error("District boundary request failed: " + response.status);
+    const geojson = await response.json();
+    if (!geojson || !Array.isArray(geojson.features)) {
+      throw new Error("The district file is not a valid GeoJSON FeatureCollection.");
+    }
+
+    state.districtFeatures = geojson.features;
+    state.districtMap = L.map("district-map", {
+      scrollWheelZoom: false,
+      zoomControl: true
+    });
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO',
+      subdomains: "abcd",
+      maxZoom: 19
+    }).addTo(state.districtMap);
+
+    state.districtLayer = L.geoJSON(geojson, {
+      style: districtStyle,
+      onEachFeature(feature, layer) {
+        const props = feature.properties || {};
+        const chamber = text(props.chamber);
+        const district = text(props.district);
+        layer.bindTooltip(chamber + " · District " + district);
+        layer.on("click", () => {
+          const key = text(props.district_key) || (chamber + "|" + district);
+          const districtSelect = el("district-select");
+          if (![...districtSelect.options].some((option) => option.value === key)) {
+            // Refresh options against the active year/chamber before selecting.
+            el("year-select").value = "All";
+            populateDistricts();
+          }
+          el("district-select").value = key;
+          onPrimaryFilterChange("district");
+          el("district-map").scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+      }
+    }).addTo(state.districtMap);
+
+    const bounds = state.districtLayer.getBounds();
+    if (bounds.isValid()) state.districtMap.fitBounds(bounds, { padding: [12, 12] });
+    updateDistrictMap();
+    window.setTimeout(() => state.districtMap && state.districtMap.invalidateSize(), 100);
+  } catch (error) {
+    console.error("Could not load district map:", error);
+    mapContainer.innerHTML = '<p class="map-error">Could not load district boundaries. Confirm data/utah_districts.geojson is committed and valid.</p>';
+    el("map-status").textContent = "District boundaries could not be loaded.";
+  }
+}
+
 function render() {
   const bills = getBaseBills();
   renderHeader(bills);
   renderStats(bills);
   renderChart(bills);
   renderTable();
+  updateDistrictMap();
 }
 
 function onPrimaryFilterChange(changed) {
@@ -586,6 +723,7 @@ async function init() {
     populateLegislators();
     populateDistricts();
     render();
+    initDistrictMap();
 
 
     ["legislator-select", "chamber-select", "year-select"].forEach((id) => {
