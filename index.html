@@ -7,7 +7,9 @@
   <meta name="theme-color" content="#142b3b">
   <title>Utah Legislature | ElectionTime</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -57,6 +59,27 @@
         </select>
       </div>
       <button id="reset-filters" class="button button-quiet" type="button">Reset filters</button>
+    </section>
+
+
+    <section class="panel district-map-panel" aria-labelledby="district-map-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">GEOGRAPHIC VIEW</p>
+          <h2 id="district-map-title">Explore Utah districts</h2>
+        </div>
+        <span class="mini-label" id="map-selection-label">ALL DISTRICTS</span>
+      </div>
+      <p class="section-copy">Select a district on the map to filter the bill records, or use the filters above. House and Senate districts are shown together; choose a chamber to focus the map.</p>
+      <div id="district-map" role="region" aria-label="Interactive map of Utah House and Senate districts">
+        <p class="map-loading">Loading district boundaries…</p>
+      </div>
+      <div class="map-legend" aria-label="Map legend">
+        <span><i class="map-legend-house"></i> House</span>
+        <span><i class="map-legend-senate"></i> Senate</span>
+        <span><i class="map-legend-selected"></i> Selected district</span>
+      </div>
+      <p class="map-status" id="map-status" role="status">District map is loading.</p>
     </section>
 
     <section class="selected-person" id="selected-person" aria-live="polite">

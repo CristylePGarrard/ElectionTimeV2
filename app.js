@@ -5,7 +5,11 @@ const state = {
   allBills: [],
   filteredBills: [],
   page: 1,
-  canvasObserver: null
+  canvasObserver: null,
+  districtMap: null,
+  districtLayer: null,
+  districtFeatures: [],
+  selectedDistrictLayer: null
 };
 
 const el = (id) => document.getElementById(id);
@@ -336,6 +340,12 @@ function renderStats(bills) {
   el("stat-passed").textContent = numberFormat.format(counts.Passed);
   el("stat-failed").textContent = numberFormat.format(counts.Failed);
   el("stat-rate").textContent = rate === null ? "—" : rate + "%";
+  ["Passed", "Failed"].forEach((outcome) => {
+    const card = el(outcome === "Passed" ? "stat-passed" : "stat-failed").closest(".stat-card");
+    const active = el("outcome-select").value === outcome;
+    card.classList.toggle("is-active", active);
+    card.setAttribute("aria-pressed", String(active));
+  });
   renderOutcomeBars(counts);
 }
 
@@ -536,12 +546,157 @@ function renderTable() {
   }).join("");
 }
 
+
+const DISTRICTS_URL = "./data/utah_districts.geojson";
+
+function selectedDistrictKey() {
+  const filters = getFilters();
+  if (filters.district) return filters.district;
+
+  if (filters.legislator) {
+    const person = state.allBills.find((bill) =>
+      text(bill.legislator_name) === filters.legislator &&
+      text(bill.chamber) &&
+      text(bill.matched_district) &&
+      ["House", "Senate"].includes(text(bill.chamber))
+    );
+    if (person) return text(person.chamber) + "|" + text(person.matched_district);
+  }
+  return "";
+}
+
+function districtStyle(feature) {
+  const properties = feature.properties || {};
+  const key = text(properties.district_key) ||
+    (text(properties.chamber) + "|" + text(properties.district));
+  const selectedKey = selectedDistrictKey();
+  const chamber = text(properties.chamber);
+  const chamberFilter = el("chamber-select").value;
+  const isSelected = Boolean(selectedKey && key === selectedKey);
+  const isDimmed = chamberFilter !== "All" && chamber !== chamberFilter;
+
+  return {
+    color: isSelected ? "#142b3b" : (chamber === "Senate" ? "#8b6b9b" : "#1c756d"),
+    weight: isSelected ? 3 : 1,
+    opacity: isDimmed ? 0.18 : 0.9,
+    fillColor: isSelected ? "#e5b85c" : (chamber === "Senate" ? "#cdbbd8" : "#9ed4c3"),
+    fillOpacity: isSelected ? 0.82 : (isDimmed ? 0.04 : 0.42)
+  };
+}
+
+function updateDistrictMap() {
+  if (!state.districtLayer) return;
+  state.districtLayer.setStyle(districtStyle);
+
+  const key = selectedDistrictKey();
+  const label = el("map-selection-label");
+  const status = el("map-status");
+
+  if (key) {
+    const [chamber, district] = key.split("|");
+    label.textContent = chamber.toUpperCase() + " · DISTRICT " + district;
+    status.textContent = "Highlighted " + chamber + " District " + district + ".";
+  } else {
+    label.textContent = el("chamber-select").value === "All"
+      ? "ALL DISTRICTS"
+      : el("chamber-select").value.toUpperCase() + " DISTRICTS";
+    status.textContent = "Choose a district on the map or with the filters above.";
+  }
+
+  if (state.districtMap && key) {
+    const feature = state.districtFeatures.find((item) => {
+      const props = item.properties || {};
+      return (text(props.district_key) ||
+        (text(props.chamber) + "|" + text(props.district))) === key;
+    });
+    if (feature) {
+      const bounds = L.geoJSON(feature).getBounds();
+      if (bounds.isValid()) state.districtMap.fitBounds(bounds, { padding: [24, 24], maxZoom: 9 });
+    }
+  }
+}
+
+async function initDistrictMap() {
+  const mapContainer = el("district-map");
+  if (!mapContainer) return;
+
+  if (typeof L === "undefined") {
+    mapContainer.innerHTML = '<p class="map-error">The map library could not load. Check your internet connection and refresh.</p>';
+    el("map-status").textContent = "Map library unavailable.";
+    return;
+  }
+
+  try {
+    const response = await fetch(DISTRICTS_URL, { cache: "no-store" });
+    if (!response.ok) throw new Error("District boundary request failed: " + response.status);
+    const geojson = await response.json();
+    if (!geojson || !Array.isArray(geojson.features)) {
+      throw new Error("The district file is not a valid GeoJSON FeatureCollection.");
+    }
+
+    state.districtFeatures = geojson.features;
+    state.districtMap = L.map("district-map", {
+      scrollWheelZoom: false,
+      zoomControl: true
+    });
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19
+    }).addTo(state.districtMap);
+
+    state.districtLayer = L.geoJSON(geojson, {
+      style: districtStyle,
+      onEachFeature(feature, layer) {
+        const props = feature.properties || {};
+        const chamber = text(props.chamber);
+        const district = text(props.district);
+        layer.bindTooltip(chamber + " · District " + district);
+        layer.on("click", () => {
+          const key = text(props.district_key) || (chamber + "|" + district);
+          const districtSelect = el("district-select");
+
+          // Clicking the already-selected district clears that selection.
+          if (districtSelect.value === key) {
+            districtSelect.value = "";
+            populateDistricts();
+            onPrimaryFilterChange("district");
+            const allBounds = state.districtLayer.getBounds();
+            if (allBounds.isValid()) {
+              state.districtMap.fitBounds(allBounds, { padding: [12, 12] });
+            }
+            return;
+          }
+
+          if (![...districtSelect.options].some((option) => option.value === key)) {
+            // Refresh options against the active year/chamber before selecting.
+            el("year-select").value = "All";
+            populateDistricts();
+          }
+          districtSelect.value = key;
+          onPrimaryFilterChange("district");
+          el("district-map").scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+      }
+    }).addTo(state.districtMap);
+
+    const bounds = state.districtLayer.getBounds();
+    if (bounds.isValid()) state.districtMap.fitBounds(bounds, { padding: [12, 12] });
+    updateDistrictMap();
+    window.setTimeout(() => state.districtMap && state.districtMap.invalidateSize(), 100);
+  } catch (error) {
+    console.error("Could not load district map:", error);
+    mapContainer.innerHTML = '<p class="map-error">Could not load district boundaries. Confirm data/utah_districts.geojson is committed and valid.</p>';
+    el("map-status").textContent = "District boundaries could not be loaded.";
+  }
+}
+
 function render() {
   const bills = getBaseBills();
   renderHeader(bills);
   renderStats(bills);
-  renderChart(bills);
+  renderChart(bills.filter((bill) => el("outcome-select").value === "All" || outcomeKind(bill) === el("outcome-select").value));
   renderTable();
+  updateDistrictMap();
 }
 
 function onPrimaryFilterChange(changed) {
@@ -558,6 +713,9 @@ function resetFilters() {
   el("session-select").value = "All";
   el("outcome-select").value = "All";
   el("district-select").value = "";
+  // Rebuild both dependent dropdowns after clearing all primary filters.
+  // Otherwise the district list can retain the single district from a map click.
+  populateDistricts();
   populateLegislators();
   state.page = 1;
   render();
@@ -586,6 +744,7 @@ async function init() {
     populateLegislators();
     populateDistricts();
     render();
+    initDistrictMap();
 
 
     ["legislator-select", "chamber-select", "year-select"].forEach((id) => {
@@ -604,7 +763,53 @@ async function init() {
       onPrimaryFilterChange("district");
     });
 
+    el("year-chart").addEventListener("click", (event) => {
+      const canvas = el("year-chart");
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const years = ["2023", "2024", "2025", "2026"];
+      const pad = { top: 24, right: 10, bottom: 34, left: 36 };
+      const plotWidth = Math.max(260, rect.width) - pad.left - pad.right;
+      const labelTop = Math.max(180, rect.height) - pad.bottom;
+
+      // Only toggle when the user clicks the year labels beneath the bars.
+      if (y < labelTop || y > labelTop + 24 || x < pad.left || x > rect.width - pad.right) return;
+      const slot = plotWidth / years.length;
+      const index = Math.floor((x - pad.left) / slot);
+      const year = years[index];
+      if (!year) return;
+
+      const yearSelect = el("year-select");
+      yearSelect.value = yearSelect.value === year ? "All" : year;
+      onPrimaryFilterChange("year");
+      el("bill-table-body").closest(".bills-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
     el("reset-filters").addEventListener("click", resetFilters);
+    el("stat-sponsored").closest(".stat-card").addEventListener("click", () => {
+      el("bill-table-body").closest(".bills-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    ["Passed", "Failed"].forEach((outcome) => {
+      const card = el(outcome === "Passed" ? "stat-passed" : "stat-failed").closest(".stat-card");
+      card.classList.add("stat-card-interactive");
+      card.setAttribute("role", "button");
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("aria-label", "Filter bills to " + outcome.toLowerCase() + " outcomes. Activate again to clear.");
+      const toggleOutcome = () => {
+        const select = el("outcome-select");
+        select.value = select.value === outcome ? "All" : outcome;
+        state.page = 1;
+        render();
+        el("outcome-bars").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      };
+      card.addEventListener("click", toggleOutcome);
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          toggleOutcome();
+        }
+      });
+    });
     el("prev-page").addEventListener("click", () => { state.page -= 1; renderTable(); });
     el("next-page").addEventListener("click", () => { state.page += 1; renderTable(); });
     window.addEventListener("resize", () => renderChart(getBaseBills()));
