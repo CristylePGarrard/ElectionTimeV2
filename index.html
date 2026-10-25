@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore Utah State House and Senate sponsored bills, outcomes, and legislative activity from 2023 through 2026.">
+  <meta name="theme-color" content="#142b3b">
+  <title>Utah Legislature | ElectionTime</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="ElectionTime home">
+      <span class="brand-mark">ET</span>
+      <span><strong>ElectionTime</strong><small>Utah Legislature Explorer</small></span>
+    </a>
+    <a class="source-link" href="https://le.utah.gov/" target="_blank" rel="noreferrer">Official Utah Legislature ↗</a>
+  </header>
+
+  <main class="page-shell">
+    <section class="intro">
+      <p class="eyebrow">UTAH · 2023–2026</p>
+      <h1>Follow the work<br><span>behind the bills.</span></h1>
+      <p class="intro-copy">Explore bills sponsored by Utah State House and Senate members, compare legislative activity across sessions, and follow the links back to the official records.</p>
+      <div class="data-note"><span class="note-dot"></span><span id="data-status" role="status">Loading legislative data…</span></div>
+    </section>
+
+    <section class="filters panel" aria-label="Dashboard filters">
+      <div class="field field-wide">
+        <label for="legislator-select">Legislator</label>
+        <select id="legislator-select"><option value="">All legislators</option></select>
+      </div>
+      <div class="field">
+        <label for="chamber-select">Chamber</label>
+        <select id="chamber-select">
+          <option value="All">House + Senate</option>
+          <option value="House">State House</option>
+          <option value="Senate">State Senate</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="year-select">Session year</label>
+        <select id="year-select">
+          <option value="All">All years</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
+          <option value="2026">2026</option>
+        </select>
+      </div>
+      <button id="reset-filters" class="button button-quiet" type="button">Reset filters</button>
+    </section>
+
+    <section class="selected-person" id="selected-person" aria-live="polite">
+      <div>
+        <p class="eyebrow">CURRENT VIEW</p>
+        <h2 id="view-title">All legislators</h2>
+        <p id="view-subtitle">A look across Utah legislative bill records.</p>
+      </div>
+      <div class="person-tag" id="person-tag">ALL MEMBERS</div>
+    </section>
+
+    <section class="stats-grid" aria-label="Bill statistics">
+      <article class="stat-card stat-featured">
+        <span class="stat-label">Bills sponsored</span>
+        <strong class="stat-value" id="stat-sponsored">—</strong>
+        <span class="stat-foot">In the selected view</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-label">Passed</span>
+        <strong class="stat-value" id="stat-passed">—</strong>
+        <span class="stat-foot">Recorded as passed</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-label">Failed</span>
+        <strong class="stat-value" id="stat-failed">—</strong>
+        <span class="stat-foot">Based on passed-list comparison</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-label">Pass rate</span>
+        <strong class="stat-value" id="stat-rate">—</strong>
+        <span class="stat-foot">Passed ÷ passed + failed</span>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <article class="panel chart-panel">
+        <div class="section-heading">
+          <div><p class="eyebrow">YEAR BY YEAR</p><h2>Sponsored bills</h2></div>
+          <span class="mini-label">2023—2026</span>
+        </div>
+        <p class="section-copy">How bill sponsorship changes across the years in this dataset.</p>
+        <div class="chart-wrap">
+          <canvas id="year-chart" role="img" aria-label="Bar chart of sponsored bills by year"></canvas>
+          <p class="empty-state" id="chart-empty" hidden>No bill records match these filters.</p>
+        </div>
+        <div class="chart-legend"><span><i></i> Sponsored bills</span><span id="chart-total">— records</span></div>
+      </article>
+
+      <article class="panel outcome-panel">
+        <div class="section-heading">
+          <div><p class="eyebrow">OUTCOME SNAPSHOT</p><h2>What happened?</h2></div>
+        </div>
+        <div id="outcome-bars" class="outcome-bars"></div>
+        <p class="fine-print">Special-session records with unverified outcomes are shown separately and excluded from the pass-rate calculation.</p>
+      </article>
+    </section>
+
+    <section class="panel bills-panel">
+      <div class="section-heading bills-heading">
+        <div><p class="eyebrow">BILL RECORDS</p><h2>Browse sponsored bills</h2><p class="section-copy">Search bill numbers, titles, sponsors, or outcomes.</p></div>
+        <span class="result-count" id="result-count">0 bills</span>
+      </div>
+      <div class="table-tools">
+        <label class="search-box" for="bill-search"><span aria-hidden="true">⌕</span><input id="bill-search" type="search" placeholder="Search bills…" autocomplete="off"></label>
+        <label class="field compact-field" for="session-select"><span>Session type</span><select id="session-select"><option value="All">All sessions</option><option value="Regular session">Regular session</option><option value="Special session">Special session</option></select></label>
+        <label class="field compact-field" for="outcome-select"><span>Outcome</span><select id="outcome-select"><option value="All">All outcomes</option><option value="Passed">Passed</option><option value="Failed">Failed</option><option value="Unverified">Unverified</option></select></label>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col">Bill</th><th scope="col">Title</th><th scope="col">Legislator</th><th scope="col">Year / session</th><th scope="col">Outcome</th><th scope="col">Official record</th></tr></thead>
+          <tbody id="bill-table-body"><tr><td colspan="6" class="table-message">Loading bill records…</td></tr></tbody>
+        </table>
+      </div>
+      <div class="table-footer">
+        <span id="page-summary">Showing 0 bills</span>
+        <div class="pagination"><button id="prev-page" class="button button-quiet" type="button" disabled>← Previous</button><button id="next-page" class="button button-quiet" type="button" disabled>Next →</button></div>
+      </div>
+    </section>
+
+    <section class="method-note">
+      <span class="method-icon">i</span>
+      <p><strong>About this data</strong> The dashboard combines Utah legislative bill records and legislator rosters. “Failed” is an estimate based on bills not appearing in the supplied passed-bill lists; it has not been independently verified against each bill's final history. Some older records may not have dates. Legislator name matching can also be imperfect.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer"><span>ElectionTime · Utah legislative data explorer</span><a href="https://github.com/CristylePGarrard/ElectionTimeV2" target="_blank" rel="noreferrer">View project source ↗</a></footer>
+</body>
+</html>
