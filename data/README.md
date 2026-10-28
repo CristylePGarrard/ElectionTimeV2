@@ -32,3 +32,19 @@ rows.append({
                 })
 
 ```
+
+I save the general session files like 
+
+```py
+f"{save_dir}/utah_bills_{year}.csv"
+f"{save_dir}/utah_bills_{year}.json"
+```
+
+and the special session files like
+
+```py
+df.to_csv(f"{save_dir}/special_session_2_2025.csv", index=False)
+```
+
+I may remove the json file since I only used the csv when I combine the data. 
+
