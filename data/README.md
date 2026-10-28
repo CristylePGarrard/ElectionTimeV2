@@ -67,6 +67,18 @@ I was lazy about getting this data and just copied and pasted the data into a go
 
 The files with all the reps are named utah_legislatures_{year}
 
+## Candidate Filings
+
+The 2026 filings were found [here](https://vote.utah.gov/2026-candidate-filings/)
+I downloaded the spreadsheet from the vote.utah.gov website and split the info into 6 tabs for 
+
+- Federal Offices
+- State Offices
+- Utah Senate
+- Utah House
+- State School Board
+- Judicial Retention
+
 ## Data work
 
 I did the data work in a google collab Jupyter notebook. 
